@@ -20,6 +20,10 @@ public class Cliente extends Persona {
 		this.altaCliente = altaCliente;
 	}
 
+	public Cliente() {
+		super();
+	}
+
 	public String getDomicilio() {
 		return domicilio;
 	}

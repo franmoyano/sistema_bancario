@@ -13,7 +13,7 @@ public class ClienteServiceImpl implements IClienteService {
 	private IClienteDAO clienteDao;
 
 	public ClienteServiceImpl() {
-		this.clienteDao = new ClienteDAO();
+		this.clienteDao = ClienteDAO.getInstance();
 	}
 
 	@Override
