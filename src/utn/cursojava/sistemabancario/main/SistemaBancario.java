@@ -43,7 +43,7 @@ public class SistemaBancario {
 
 		List<Cuenta> cuentas = new ArrayList<>();
 
-		Cliente cliente = new Cliente("40123456", "Franco Cortina", "11-1512-4578", "francocortina@gmail.com",
+		Cliente cliente = new Cliente("42974433", "Franco Moyano", "11-1512-4578", "francocortina@gmail.com",
 				"La Plata", cuentas, null);
 
 		CuentaCorriente cuentaCorriente = new CuentaCorriente(null, null, null);
@@ -51,12 +51,12 @@ public class SistemaBancario {
 
 		clienteService.addCliente(cliente);
 
-		List<Cliente> clientes = clienteService.listarClientes();
+		List<Cliente> clientes = clienteService.findClients();
 
-		System.out.println("\nNombre y Apellido | Domicilio \n");
+		System.out.println("\nNombre y Apellido | DNI \n");
 		for (Cliente cliente2 : clientes) {
-			System.out.println(cliente2);
-			System.out.println("\n");
+			System.out.println(cliente2.getNombreApellido() + " " + cliente2.getDni());
+			System.out.println("");
 		}
 	}
 

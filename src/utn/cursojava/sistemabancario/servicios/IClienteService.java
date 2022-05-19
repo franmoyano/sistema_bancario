@@ -15,6 +15,8 @@ public interface IClienteService {
 	public List<Cliente> listarClientes(Integer nroSucursal);
 	
 	public List<Cuenta> listarCuentas();
+
+	public List<Cliente> findClients();
 	
 	public Cuenta crearCuenta (TipoCuenta tipoCuenta) ;
 

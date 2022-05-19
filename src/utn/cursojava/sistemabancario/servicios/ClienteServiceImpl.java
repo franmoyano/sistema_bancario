@@ -18,9 +18,11 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public void addCliente(Cliente cliente) {
-		if (validarEmail(cliente.getEmail())) {
-			clienteDao.addCliente(cliente);
-		}
+//		if (validarEmail(cliente.getEmail())) {
+//			clienteDao.addCliente(cliente);
+//		}
+
+		clienteDao.addCliente(cliente);
 	}
 
 	public void deleteCiente(String cuil) {
@@ -39,6 +41,7 @@ public class ClienteServiceImpl implements IClienteService {
 		return Boolean.TRUE;
 	}
 
+
 	public List<Cliente> listarClientes(Integer nroSucursal) {
 		return clienteDao.findClientsBySucursal(nroSucursal);
 	}
@@ -50,6 +53,11 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	public List<Cuenta> listarCuentas() {
 		return clienteDao.listarCuentas();
+	}
+
+	@Override
+	public List<Cliente> findClients() {
+		return clienteDao.findClients();
 	}
 
 	public Cuenta crearCuenta(TipoCuenta tipoCuenta) {

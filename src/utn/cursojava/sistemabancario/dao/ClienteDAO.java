@@ -10,7 +10,7 @@ import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
 
-public class ClienteDAO implements IClienteDAO {
+public class ClienteDAO extends DAO implements IClienteDAO {
 
 	private List<Cliente> clientes;
 	private List<Cuenta> cuentas;
@@ -41,6 +41,11 @@ public class ClienteDAO implements IClienteDAO {
 	@Override
 	public void addCliente(Cliente cliente) {
 		clientes.add(cliente);
+
+		String query = "INSERT INTO clientes (cuil, nombre_apellido)" +
+				"VALUES('" + cliente.getDni() + "', '" + cliente.getNombreApellido() + "');";
+
+		crud(query);
 	}
 
 	@Override
@@ -66,17 +71,15 @@ public class ClienteDAO implements IClienteDAO {
 			Statement stmt = con.createStatement();
 
 			// 4) Ejecución de Query
-			ResultSet rs = stmt.executeQuery("select NRO_CLIENTE, CUIL, NOMBRE_APELLIDO from CLIENTES");
+			ResultSet rs = stmt.executeQuery("select nro_cliente, cuil, nombre_apellido from clientes");
 
 			Cliente cliente;
 			while (rs.next()) {
 				cliente = new Cliente();
 				Integer nroCliente = rs.getInt(1);
-				cliente.setDni(rs.getString(2));// xx-xxxxxxxx-x, TODO: seteear cuil con formato esperado por el objeto
-				// cliente
+				cliente.setDni(rs.getString(2));// TODO: seteear cuil con formato esperado por el objeto
 				cliente.setNombreApellido(rs.getString(3));
-
-				clientes.add(cliente);
+				clientes.add(cliente);;
 			}
 
 			// 5) Cerrar la conexion
@@ -90,6 +93,7 @@ public class ClienteDAO implements IClienteDAO {
 		}
 
 		return clientes;
+
 	}
 
 	public List<Cliente> findClientsBySucursal(Integer nroSucursal) { // nroSucursal:1
