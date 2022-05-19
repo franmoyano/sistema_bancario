@@ -2,6 +2,7 @@ package utn.cursojava.sistemabancario.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.modelo.Cliente;
@@ -43,8 +44,16 @@ public class SistemaBancario {
 
 		List<Cuenta> cuentas = new ArrayList<>();
 
-		Cliente cliente = new Cliente("42974433", "Franco Moyano", "11-1512-4578", "francocortina@gmail.com",
-				"La Plata", cuentas, null);
+
+		Scanner input = new Scanner(System.in);
+		System.out.print("Ingrese los datos del nuevo cliente" +
+				"\nNombre y apellido: ");
+		String nombreApellido = input.nextLine();
+		System.out.print("DNI: ");
+		String dni = input.nextLine();
+
+		Cliente cliente = new Cliente(dni, nombreApellido, "11-1512-4578", "francocortina@gmail.com",
+				"San Rafael", cuentas, null);
 
 		CuentaCorriente cuentaCorriente = new CuentaCorriente(null, null, null);
 		cliente.getCuentas().add(cuentaCorriente);
@@ -53,10 +62,10 @@ public class SistemaBancario {
 
 		List<Cliente> clientes = clienteService.findClients();
 
-		System.out.println("\nNombre y Apellido | DNI \n");
+		//clienteService.deleteCliente("");
+		System.out.println("\nNombre y Apellido | DNI");
 		for (Cliente cliente2 : clientes) {
-			System.out.println(cliente2.getNombreApellido() + " " + cliente2.getDni());
-			System.out.println("");
+			System.out.println(cliente2.getNombreApellido() + " | " + cliente2.getDni());
 		}
 	}
 

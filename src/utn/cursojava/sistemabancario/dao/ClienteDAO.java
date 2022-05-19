@@ -50,8 +50,8 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	@Override
 	public void deleteCliente(String cuil) {
-		// TODO: eliminar cliente por cuil
-
+		String query = "DELETE FROM clientes WHERE cuil = '" + cuil + "'";
+		crud(query);
 	}
 
 	public List<Cliente> findClients() {

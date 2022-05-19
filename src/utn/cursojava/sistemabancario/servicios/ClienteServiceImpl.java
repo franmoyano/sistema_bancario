@@ -18,14 +18,11 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public void addCliente(Cliente cliente) {
-//		if (validarEmail(cliente.getEmail())) {
-//			clienteDao.addCliente(cliente);
-//		}
-
 		clienteDao.addCliente(cliente);
 	}
 
-	public void deleteCiente(String cuil) {
+	@Override
+	public void deleteCliente(String cuil) {
 		clienteDao.deleteCliente(cuil);
 	}
 
