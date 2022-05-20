@@ -3,14 +3,14 @@ package utn.cursojava.sistemabancario.modelo;
 public abstract class Persona {
 
 	// Atributos
-	protected String dni;
+	protected String cuil;
 	protected String nombreApellido;
 	protected String telefono;
 	protected String email;
 
 	// Constructor
-	public Persona(String dni, String nombreApellido, String telefono, String email) {
-		this.dni = dni;
+	public Persona(String cuil, String nombreApellido, String telefono, String email) {
+		this.cuil = cuil;
 		this.nombreApellido = nombreApellido;
 		this.telefono = telefono;
 		this.email = email;
@@ -20,12 +20,12 @@ public abstract class Persona {
 
 	}
 
-	public String getDni() {
-		return dni;
+	public String getCuil() {
+		return cuil;
 	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setCuil(String cuil) {
+		this.cuil = cuil;
 	}
 
 	public String getNombreApellido() {

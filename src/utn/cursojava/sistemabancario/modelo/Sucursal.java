@@ -63,7 +63,7 @@ public class Sucursal {
 	 */
 	public Empleado obtenerEmpleado(String dni) {
 		for (Empleado empleado : listaEmpleados) {
-			if (empleado.getDni().equals(dni)) {
+			if (empleado.getCuil().equals(dni)) {
 				return empleado;
 			}
 

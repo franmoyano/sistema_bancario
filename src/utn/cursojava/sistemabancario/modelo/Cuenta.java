@@ -1,7 +1,7 @@
 package utn.cursojava.sistemabancario.modelo;
 
 public abstract class Cuenta {
-	protected Integer numCuenta;
+	protected Integer id;
 	protected Double saldo;
 	protected String cbu;
 
@@ -9,18 +9,18 @@ public abstract class Cuenta {
 	public Cuenta() {
 	}
 
-	public Cuenta(Integer numCuenta, Double saldo, String cbu) {
-		this.numCuenta = numCuenta;
+	public Cuenta(Integer id, Double saldo, String cbu) {
+		this.id = id;
 		this.saldo = saldo;
 		this.cbu = cbu;
 	}
 
-	public Integer getNumCuenta() {
-		return numCuenta;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setNumCuenta(Integer numCuenta) {
-		this.numCuenta = numCuenta;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Double getSaldo() {

@@ -8,18 +8,16 @@ import utn.cursojava.sistemabancario.modelo.Cuenta;
 
 public interface IClienteService {
 
-	public void addCliente(Cliente cliente);
+	void addCliente(Cliente cliente);
 
 	void deleteCliente(String cuil);
 
-	public List<Cliente> listarClientes();
+	List<Cliente> listarClientes();
 	
-	public List<Cliente> listarClientes(Integer nroSucursal);
+	List<Cliente> listarClientesPorSucursal(Integer nroSucursal);
 	
-	public List<Cuenta> listarCuentas();
+	List<Cuenta> listarCuentas();
 
-	public List<Cliente> findClients();
-	
-	public Cuenta crearCuenta (TipoCuenta tipoCuenta) ;
+	List<Cliente> findClients();
 
 }

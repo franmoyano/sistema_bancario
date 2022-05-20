@@ -5,11 +5,10 @@ import java.util.List;
 
 public class Cliente extends Persona {
 	// ATRIBUTOS
+	private Integer id;
 	private String domicilio;
 	private Date altaCliente;
-	// private Sucursal sucursal;
 	private Integer sucursalId;
-
 	private List<Cuenta> cuentas;
 
 	public Cliente(String dni, String nombreApellido, String telefono, String email, String domicilio,
@@ -54,6 +53,14 @@ public class Cliente extends Persona {
 
 	public void setSucursalId(Integer sucursalId) {
 		this.sucursalId = sucursalId;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override

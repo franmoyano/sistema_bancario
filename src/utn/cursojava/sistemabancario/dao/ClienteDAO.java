@@ -40,12 +40,18 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	@Override
 	public void addCliente(Cliente cliente) {
-		clientes.add(cliente);
-
-		String query = "INSERT INTO clientes (cuil, nombre_apellido)" +
-				"VALUES('" + cliente.getDni() + "', '" + cliente.getNombreApellido() + "');";
-
-		//crearModificarEliminar(query); TODO: crear metodo
+		try {
+			conectar();
+			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio)" +
+					"VALUES(?, ?, ?, ?)";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, "20429744335");
+			statement.setString(2, "Luquitas Moyano");
+			statement.setString(3, "Suter S/N");
+			statement.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -54,7 +60,7 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		//crearModificarEliminar(query); TODO: crear metodo
 	}
 
-	public List<Cliente> findClients() {
+	public List<Cliente> listarClientes() {
 		try {
 			String query = "SELECT nombre_apellido, cuil FROM clientes";
 			//consultarBase(query);  TODO: crear metodo
@@ -63,7 +69,7 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 			while (result.next()) {
 				cliente = new Cliente();
 				cliente.setNombreApellido(result.getString(1));
-				cliente.setDni(result.getString(2));
+				cliente.setCuil(result.getString(2));
 				clientes.add(cliente);
 			}
 			return clientes;
@@ -75,17 +81,9 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		}
 	}
 
-	public List<Cliente> findClientsBySucursal(Integer nroSucursal) { // nroSucursal:1
-		List<Cliente> clientePorSucursal = new ArrayList<>();
-
-		// SELECT * FROM CLIENTES where id_sucursal = 1
-		for (Cliente cliente : clientes) {
-			if (cliente.getSucursalId().equals(nroSucursal)) {
-				clientePorSucursal.add(cliente);
-			}
-
-		}
-		return clientePorSucursal;
+	@Override
+	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
+		return null;
 	}
 
 	public List<Cuenta> listarCuentas() {

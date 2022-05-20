@@ -1,7 +1,13 @@
 package utn.cursojava.sistemabancario.servicios;
 
-public interface ICuentaService {
-	public Double extraer(Double monto);
+import utn.cursojava.sistemabancario.constants.TipoCuenta;
+import utn.cursojava.sistemabancario.modelo.Cuenta;
 
-	public void depositar(Double monto);
+public interface ICuentaService {
+
+	Cuenta crearCuenta(TipoCuenta tipoCuenta);
+
+	Double extraer(Double monto);
+
+	void depositar(Double monto);
 }

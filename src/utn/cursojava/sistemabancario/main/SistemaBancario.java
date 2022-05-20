@@ -9,6 +9,7 @@ import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
 import utn.cursojava.sistemabancario.servicios.ClienteServiceImpl;
+import utn.cursojava.sistemabancario.servicios.CuentaServiceImpl;
 import utn.cursojava.sistemabancario.servicios.IClienteService;
 
 /**
@@ -36,11 +37,13 @@ public class SistemaBancario {
 	// private IClienteService clienteService;
 
 	public static void main(String[] args) {
-		IClienteService clienteService = new ClienteServiceImpl();
+		ClienteServiceImpl clienteService = new ClienteServiceImpl();
+		CuentaServiceImpl cuentaService = new CuentaServiceImpl();
+
 
 		System.out.println("Punto de inicio del Sistema Bancario");
 		// TODO: Dar de alta una caja de ahorro
-		Cuenta cuenta = clienteService.crearCuenta(TipoCuenta.CAJA_AHORRO);
+		Cuenta cuenta = cuentaService.crearCuenta(TipoCuenta.CAJA_AHORRO);
 
 		List<Cuenta> cuentas = new ArrayList<>();
 
@@ -66,7 +69,7 @@ public class SistemaBancario {
 		//clienteService.deleteCliente("42974433");
 		System.out.println("\nNombre y Apellido\t\t\tDNI");
 		for (Cliente cliente2 : clientes) {
-			System.out.println(cliente2.getNombreApellido() + "\t\t\t" + cliente2.getDni());
+			System.out.println(cliente2.getNombreApellido() + "\t\t\t" + cliente2.getCuil());
 		}
 	}
 

@@ -20,14 +20,26 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
         return instance;
     }
 
-
     @Override
     public void addSucursal(Sucursal sucursal) {
-        //TODO: completar metodo
+        //TODO: completar
     }
 
     @Override
-    public void deleteSucursal(Sucursal sucursal) {
-        //TODO: completar metodo
+    public void deleteSucursal(Integer nroSucursal) {
+        //TODO: completar
+    }
+
+    @Override
+    public List<Sucursal> listarSucursales() {
+        //TODO: completar
+        return null;
+    }
+
+
+    @Override
+    public Sucursal findSucursalByNroSucursal(Integer nroSucursal) {
+        //TODO: completar
+        return null;
     }
 }

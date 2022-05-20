@@ -1,6 +1,7 @@
 package utn.cursojava.sistemabancario.servicios;
 
 import java.util.List;
+import java.util.Scanner;
 
 import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.dao.ClienteDAO;
@@ -21,30 +22,29 @@ public class ClienteServiceImpl implements IClienteService {
 		clienteDao.addCliente(cliente);
 	}
 
+	public void addCliente() {
+		Scanner input = new Scanner(System.in);
+		Cliente cliente = new Cliente();
+		System.out.println("*** CREANDO CLIENTE ***");
+		System.out.print("Nombre y apellido: ");
+		cliente.setNombreApellido(input.nextLine());
+		System.out.print("Cuil (SIN GUIONES NI ESPACIOS): ");
+		cliente.setCuil(input.nextLine());
+	}
+
 	@Override
 	public void deleteCliente(String cuil) {
 		clienteDao.deleteCliente(cuil);
 	}
 
-	// 31/03/1989
-	public void validarFechaNacimiento(String fechaNacimiento) {
-		// TODO: Validar que la edad sea mayor a 18 años
-
-	}
-
-	public Boolean validarEmail(String email) {
-		// TODO: Validar que el email tenga un formato adecuado
-
-		return Boolean.TRUE;
-	}
-
-
-	public List<Cliente> listarClientes(Integer nroSucursal) {
-		return clienteDao.findClientsBySucursal(nroSucursal);
-	}
-
+	@Override
 	public List<Cliente> listarClientes() {
-		return clienteDao.findClients();
+		return clienteDao.listarClientes();
+	}
+
+	@Override
+	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
+		return clienteDao.listarClientesPorSucursal(nroSucursal);
 	}
 
 	@Override
@@ -54,12 +54,9 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public List<Cliente> findClients() {
-		return clienteDao.findClients();
+		return clienteDao.listarClientes();
 	}
 
-	public Cuenta crearCuenta(TipoCuenta tipoCuenta) {
-		return null;
 
-	}
 
 }
