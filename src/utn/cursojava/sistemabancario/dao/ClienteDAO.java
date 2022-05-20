@@ -45,55 +45,32 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		String query = "INSERT INTO clientes (cuil, nombre_apellido)" +
 				"VALUES('" + cliente.getDni() + "', '" + cliente.getNombreApellido() + "');";
 
-		crud(query);
+		crearModificarEliminar(query);
 	}
 
 	@Override
 	public void deleteCliente(String cuil) {
 		String query = "DELETE FROM clientes WHERE cuil = '" + cuil + "'";
-		crud(query);
+		crearModificarEliminar(query);
 	}
 
 	public List<Cliente> findClients() {
-		String url = "jdbc:mysql://localhost:3306/sistema_bancario";
-		String userName = "root";
-		String password = "root";
-
-		Connection con;
 		try {
-			// 1) Register the driver class
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// 2) Create the connection object
-			con = DriverManager.getConnection(url, userName, password);
-
-			// 3) Create the Statement object
-			Statement stmt = con.createStatement();
-
-			// 4) Ejecución de Query
-			ResultSet rs = stmt.executeQuery("select nro_cliente, cuil, nombre_apellido from clientes");
-
-			Cliente cliente;
-			while (rs.next()) {
+			String query = "SELECT nombre_apellido, cuil FROM clientes";
+			consultarBase(query);
+			Cliente cliente = null;
+			List<Cliente> clientes = new ArrayList<>();
+			while (result.next()) {
 				cliente = new Cliente();
-				Integer nroCliente = rs.getInt(1);
-				cliente.setDni(rs.getString(2));// TODO: seteear cuil con formato esperado por el objeto
-				cliente.setNombreApellido(rs.getString(3));
-				clientes.add(cliente);;
+				cliente.setNombreApellido(result.getString(1));
+				cliente.setDni(result.getString(2));
+				clientes.add(cliente);
 			}
-
-			// 5) Cerrar la conexion
-			con.close();
-		} catch (ClassNotFoundException e) {
-
+			return clientes;
 		} catch (SQLException e) {
-			System.out.println(e);
-		} finally {
-
+			e.printStackTrace();
+			return null;
 		}
-
-		return clientes;
-
 	}
 
 	public List<Cliente> findClientsBySucursal(Integer nroSucursal) { // nroSucursal:1

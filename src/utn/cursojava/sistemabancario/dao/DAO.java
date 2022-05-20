@@ -38,7 +38,7 @@ public abstract class DAO {
         }
     }
 
-    protected void crud(String query) {
+    protected void crearModificarEliminar(String query) {
         try {
             conectar();
             statement = connection.createStatement();
@@ -47,6 +47,16 @@ public abstract class DAO {
             e.printStackTrace();
         } finally {
             desconectar();
+        }
+    }
+
+    protected void consultarBase(String query) {
+        try {
+            conectar();
+            statement = connection.createStatement();
+            result = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

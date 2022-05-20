@@ -45,27 +45,28 @@ public class SistemaBancario {
 		List<Cuenta> cuentas = new ArrayList<>();
 
 
-		Scanner input = new Scanner(System.in);
-		System.out.print("Ingrese los datos del nuevo cliente" +
-				"\nNombre y apellido: ");
-		String nombreApellido = input.nextLine();
-		System.out.print("DNI: ");
-		String dni = input.nextLine();
-
-		Cliente cliente = new Cliente(dni, nombreApellido, "11-1512-4578", "francocortina@gmail.com",
-				"San Rafael", cuentas, null);
-
-		CuentaCorriente cuentaCorriente = new CuentaCorriente(null, null, null);
-		cliente.getCuentas().add(cuentaCorriente);
-
-		clienteService.addCliente(cliente);
+		//BLOQUE PARA INGRESAR USUARIO MANUALMENTE
+//		Scanner input = new Scanner(System.in);
+//		System.out.print("Ingrese los datos del nuevo cliente" +
+//				"\nNombre y apellido: ");
+//		String nombreApellido = input.nextLine();
+//		System.out.print("DNI: ");
+//		String dni = input.nextLine();
+//
+//		Cliente cliente = new Cliente(dni, nombreApellido, "11-1512-4578", "francocortina@gmail.com",
+//				"San Rafael", cuentas, null);
+//
+//		CuentaCorriente cuentaCorriente = new CuentaCorriente(null, null, null);
+//		cliente.getCuentas().add(cuentaCorriente);
+//
+//		clienteService.addCliente(cliente);
 
 		List<Cliente> clientes = clienteService.findClients();
 
-		//clienteService.deleteCliente("");
-		System.out.println("\nNombre y Apellido | DNI");
+		//clienteService.deleteCliente("42974433");
+		System.out.println("\nNombre y Apellido\t\t\tDNI");
 		for (Cliente cliente2 : clientes) {
-			System.out.println(cliente2.getNombreApellido() + " | " + cliente2.getDni());
+			System.out.println(cliente2.getNombreApellido() + "\t\t\t" + cliente2.getDni());
 		}
 	}
 
