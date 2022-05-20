@@ -45,19 +45,19 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		String query = "INSERT INTO clientes (cuil, nombre_apellido)" +
 				"VALUES('" + cliente.getDni() + "', '" + cliente.getNombreApellido() + "');";
 
-		crearModificarEliminar(query);
+		//crearModificarEliminar(query); TODO: crear metodo
 	}
 
 	@Override
 	public void deleteCliente(String cuil) {
 		String query = "DELETE FROM clientes WHERE cuil = '" + cuil + "'";
-		crearModificarEliminar(query);
+		//crearModificarEliminar(query); TODO: crear metodo
 	}
 
 	public List<Cliente> findClients() {
 		try {
 			String query = "SELECT nombre_apellido, cuil FROM clientes";
-			consultarBase(query);
+			//consultarBase(query);  TODO: crear metodo
 			Cliente cliente = null;
 			List<Cliente> clientes = new ArrayList<>();
 			while (result.next()) {
@@ -70,6 +70,8 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			desconectar();
 		}
 	}
 

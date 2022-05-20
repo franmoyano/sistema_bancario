@@ -7,13 +7,13 @@ import utn.cursojava.sistemabancario.modelo.Cuenta;
 
 public interface IClienteDAO {
 
-	public void addCliente(Cliente cliente);
+	void addCliente(Cliente cliente);
 
-	public void deleteCliente(String cuil);
+	void deleteCliente(String cuil);
 
-	public List<Cliente> findClients();
+	List<Cliente> findClients();
 
-	public List<Cliente> findClientsBySucursal(Integer nroSucursal);
+	List<Cliente> findClientsBySucursal(Integer nroSucursal);
 
-	public List<Cuenta> listarCuentas();
+	List<Cuenta> listarCuentas();
 }

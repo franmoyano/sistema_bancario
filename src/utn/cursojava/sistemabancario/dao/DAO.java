@@ -5,7 +5,7 @@ import java.sql.*;
 public abstract class DAO {
     protected Connection connection = null;
     protected ResultSet result = null;
-    protected Statement statement = null;
+    protected PreparedStatement statement = null;
 
     private final String USER = "root";
     private final String PASSWORD = "root";
@@ -38,26 +38,26 @@ public abstract class DAO {
         }
     }
 
-    protected void crearModificarEliminar(String query) {
-        try {
-            conectar();
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch(SQLException e) {
-            e.printStackTrace();
-        } finally {
-            desconectar();
-        }
-    }
+//    protected void crearModificarEliminar(String query) {
+//        try {
+//            conectar();
+//            statement = connection.createStatement();
+//            statement.executeUpdate(query);
+//        } catch(SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            desconectar();
+//        }
+//    }
 
-    protected void consultarBase(String query) {
-        try {
-            conectar();
-            statement = connection.createStatement();
-            result = statement.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    protected void consultarBase(String query) {
+//        try {
+//            conectar();
+//            statement = connection.createStatement();
+//            result = statement.executeQuery(query);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
