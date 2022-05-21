@@ -18,17 +18,6 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	private static ClienteDAO instance;
 
 	private ClienteDAO() {
-		this.clientes = new ArrayList<>();
-		this.cuentas = new ArrayList<>();
-
-		Cuenta cajaDeAhorro = new CajaDeAhorro(TipoCuenta.CAJA_AHORRO.getNroCuenta(), Double.valueOf("0.0"),
-				"10000000000000012423432423423", "P");
-		cuentas.add(cajaDeAhorro);
-
-		Cuenta cuentaCorriente = new CuentaCorriente(TipoCuenta.CUENTA_CORRIENTE.getNroCuenta(), Double.valueOf("0.0"),
-				"10000000000000012423432423423");
-		cuentas.add(cuentaCorriente);
-
 	}
 
 	public synchronized static ClienteDAO getInstance() {
@@ -43,12 +32,13 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		try {
 			conectar();
 			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio)" +
-					"VALUES(?, ?, ?, ?)";
+					"VALUES(?, ?, ?)";
 			statement = connection.prepareStatement(query);
-			statement.setString(1, "20429744335");
-			statement.setString(2, "Luquitas Moyano");
-			statement.setString(3, "Suter S/N");
+			statement.setString(1, cliente.getCuil());
+			statement.setString(2, cliente.getNombreApellido());
+			statement.setString(3, cliente.getDomicilio());
 			statement.executeUpdate();
+			desconectar();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,8 +46,18 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	@Override
 	public void deleteCliente(String cuil) {
-		String query = "DELETE FROM clientes WHERE cuil = '" + cuil + "'";
-		//crearModificarEliminar(query); TODO: crear metodo
+		try {
+			conectar();
+
+			String query = "DELETE FROM clientes WHERE cuil = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, cuil);
+			statement.executeUpdate();
+
+			desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<Cliente> listarClientes() {

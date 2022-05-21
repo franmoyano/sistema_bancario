@@ -30,6 +30,9 @@ public class ClienteServiceImpl implements IClienteService {
 		cliente.setNombreApellido(input.nextLine());
 		System.out.print("Cuil (SIN GUIONES NI ESPACIOS): ");
 		cliente.setCuil(input.nextLine());
+		System.out.print("Domicilio: ");
+		cliente.setDomicilio(input.nextLine());
+		clienteDao.addCliente(cliente);
 	}
 
 	@Override

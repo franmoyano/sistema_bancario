@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import utn.cursojava.sistemabancario.constants.TipoCuenta;
+import utn.cursojava.sistemabancario.constants.TipoMoneda;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
@@ -34,43 +35,13 @@ import utn.cursojava.sistemabancario.servicios.IClienteService;
  */
 public class SistemaBancario {
 
-	// private IClienteService clienteService;
-
 	public static void main(String[] args) {
 		ClienteServiceImpl clienteService = new ClienteServiceImpl();
 		CuentaServiceImpl cuentaService = new CuentaServiceImpl();
 
-
 		System.out.println("Punto de inicio del Sistema Bancario");
-		// TODO: Dar de alta una caja de ahorro
-		Cuenta cuenta = cuentaService.crearCuenta(TipoCuenta.CAJA_AHORRO);
+		//clienteService.addCliente();
 
-		List<Cuenta> cuentas = new ArrayList<>();
-
-
-		//BLOQUE PARA INGRESAR USUARIO MANUALMENTE
-//		Scanner input = new Scanner(System.in);
-//		System.out.print("Ingrese los datos del nuevo cliente" +
-//				"\nNombre y apellido: ");
-//		String nombreApellido = input.nextLine();
-//		System.out.print("DNI: ");
-//		String dni = input.nextLine();
-//
-//		Cliente cliente = new Cliente(dni, nombreApellido, "11-1512-4578", "francocortina@gmail.com",
-//				"San Rafael", cuentas, null);
-//
-//		CuentaCorriente cuentaCorriente = new CuentaCorriente(null, null, null);
-//		cliente.getCuentas().add(cuentaCorriente);
-//
-//		clienteService.addCliente(cliente);
-
-		List<Cliente> clientes = clienteService.findClients();
-
-		//clienteService.deleteCliente("42974433");
-		System.out.println("\nNombre y Apellido\t\t\tDNI");
-		for (Cliente cliente2 : clientes) {
-			System.out.println(cliente2.getNombreApellido() + "\t\t\t" + cliente2.getCuil());
-		}
+		clienteService.deleteCliente("1341349134");
 	}
-
 }
