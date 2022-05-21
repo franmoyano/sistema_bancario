@@ -18,6 +18,10 @@ public class Sucursal {
 		this.listaEmpleados = new ArrayList<Empleado>();
 	}
 
+	public Sucursal(){
+
+	}
+
 	// METODOS
 
 	public String getNombre() {

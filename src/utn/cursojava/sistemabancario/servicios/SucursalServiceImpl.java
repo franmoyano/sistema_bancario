@@ -4,6 +4,7 @@ import utn.cursojava.sistemabancario.dao.SucursalDAO;
 import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class SucursalServiceImpl implements ISucursalService {
     private SucursalDAO sucursalDao;
@@ -14,6 +15,17 @@ public class SucursalServiceImpl implements ISucursalService {
 
     @Override
     public void addSucursal(Sucursal sucursal) {
+        sucursalDao.addSucursal(sucursal);
+    }
+
+    @Override
+    public void addSucursal() {
+        Sucursal sucursal = new Sucursal();
+        Scanner input = new Scanner(System.in);
+        System.out.println("*** CREANDO SUCURSAL ***");
+        System.out.print("Nombre: ");
+        sucursal.setNombre(input.nextLine());
+
         sucursalDao.addSucursal(sucursal);
     }
 

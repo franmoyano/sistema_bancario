@@ -1,17 +1,13 @@
 package utn.cursojava.sistemabancario.main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
-import utn.cursojava.sistemabancario.constants.TipoMoneda;
 import utn.cursojava.sistemabancario.modelo.Cliente;
-import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
+import utn.cursojava.sistemabancario.modelo.Sucursal;
 import utn.cursojava.sistemabancario.servicios.ClienteServiceImpl;
 import utn.cursojava.sistemabancario.servicios.CuentaServiceImpl;
 import utn.cursojava.sistemabancario.servicios.IClienteService;
+import utn.cursojava.sistemabancario.servicios.SucursalServiceImpl;
+
+import java.util.List;
 
 /**
  * Tomando como punto de partida el diagrama de Clases del sistema de Gestión
@@ -38,11 +34,29 @@ public class SistemaBancario {
 	public static void main(String[] args) {
 		ClienteServiceImpl clienteService = new ClienteServiceImpl();
 		CuentaServiceImpl cuentaService = new CuentaServiceImpl();
+		SucursalServiceImpl sucursalService = new SucursalServiceImpl();
 
 		System.out.println("Punto de inicio del Sistema Bancario");
 
-		//clienteService.addCliente();
+//		LISTAR SUCURSALES: OK
+//		List<Sucursal> sucursales = sucursalService.listarSucursales();
+//		for(Sucursal sucursal : sucursales) {
+//			System.out.println(sucursal.getNumSucursal() + ") " + sucursal.getNombre());
+//		}
 
-		//clienteService.deleteCliente("1341349134");
+//		AGREGAR SUCURSAL: OK
+//		sucursalService.addSucursal();
+//
+//		AGREGAR CLIENTE: OK
+//		clienteService.addCliente();
+//
+//		ELIMINAR CLIENTE POR CUIL: OK
+//		clienteService.deleteCliente("1341349134");
+
+//		LISTAR CLIENTES: OK
+		List<Cliente> clientes = clienteService.listarClientes();
+		for(Cliente cliente : clientes) {
+			System.out.println(cliente);
+		}
 	}
 }
