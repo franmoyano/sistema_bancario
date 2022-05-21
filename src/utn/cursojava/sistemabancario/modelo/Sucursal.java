@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Sucursal {
 	// Atributos
-	private String nombreSucursal;
+	private String nombre;
 	private Integer numSucursal;
-	
+
 	private List<Cliente> listaClientes;
 	private List<Empleado> listaEmpleados;
 
-	public Sucursal(String nombreSucursal, Integer numSucursal) {
-		this.nombreSucursal = nombreSucursal;
+	public Sucursal(String nombre, Integer numSucursal) {
+		this.nombre = nombre;
 		this.numSucursal = numSucursal;
 		this.listaClientes = new ArrayList<Cliente>();
 		this.listaEmpleados = new ArrayList<Empleado>();
@@ -20,8 +20,8 @@ public class Sucursal {
 
 	// METODOS
 
-	public String getNombreSucursal() {
-		return nombreSucursal;
+	public String getNombre() {
+		return nombre;
 	}
 
 	public List<Empleado> getListaEmpleados() {
@@ -36,8 +36,8 @@ public class Sucursal {
 		this.numSucursal = numSucursal;
 	}
 
-	public void setNombreSucursal(String nombreSucursal) {
-		this.nombreSucursal = nombreSucursal;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public int getNumSucursal() {
@@ -54,21 +54,6 @@ public class Sucursal {
 
 	public void setListaClientes(List<Cliente> clientes) {
 		this.listaClientes = clientes;
-	}
-
-	/**
-	 * 
-	 * @param dni
-	 * @return
-	 */
-	public Empleado obtenerEmpleado(String dni) {
-		for (Empleado empleado : listaEmpleados) {
-			if (empleado.getCuil().equals(dni)) {
-				return empleado;
-			}
-
-		}
-		return null;
 	}
 
 }

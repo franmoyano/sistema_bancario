@@ -40,8 +40,9 @@ public class SistemaBancario {
 		CuentaServiceImpl cuentaService = new CuentaServiceImpl();
 
 		System.out.println("Punto de inicio del Sistema Bancario");
+
 		//clienteService.addCliente();
 
-		clienteService.deleteCliente("1341349134");
+		//clienteService.deleteCliente("1341349134");
 	}
 }
