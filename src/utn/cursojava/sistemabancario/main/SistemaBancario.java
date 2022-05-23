@@ -1,17 +1,12 @@
 package utn.cursojava.sistemabancario.main;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
-import utn.cursojava.sistemabancario.constants.TipoMoneda;
 import utn.cursojava.sistemabancario.modelo.Cliente;
-import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
 import utn.cursojava.sistemabancario.servicios.ClienteServiceImpl;
 import utn.cursojava.sistemabancario.servicios.CuentaServiceImpl;
-import utn.cursojava.sistemabancario.servicios.IClienteService;
+import utn.cursojava.sistemabancario.servicios.SucursalServiceImpl;
+
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Tomando como punto de partida el diagrama de Clases del sistema de Gestión
@@ -34,15 +29,50 @@ import utn.cursojava.sistemabancario.servicios.IClienteService;
  *
  */
 public class SistemaBancario {
+	static ClienteServiceImpl clienteService = new ClienteServiceImpl();
+	static CuentaServiceImpl cuentaService = new CuentaServiceImpl();
+	static SucursalServiceImpl sucursalService = new SucursalServiceImpl();
 
 	public static void main(String[] args) {
-		ClienteServiceImpl clienteService = new ClienteServiceImpl();
-		CuentaServiceImpl cuentaService = new CuentaServiceImpl();
+		Scanner input = new Scanner(System.in);
+		Integer opcion = input.nextInt();
+		menu(opcion);
+	}
 
-		System.out.println("Punto de inicio del Sistema Bancario");
-
-		//clienteService.addCliente();
-
-		//clienteService.deleteCliente("1341349134");
+	static void menu(Integer opcion) {
+		switch (opcion) {
+			case 1:
+				clienteService.addCliente();
+				break;
+			case 2:
+				break;
+			case 3:
+				clienteService.listarClientes();
+				List<Cliente> c1 = clienteService.listarClientes();
+				for(Cliente c : c1) {
+					System.out.println(c.getNombreApellido());
+				}
+				break;
+			case 4:
+				List<Cliente> c2 = clienteService.listarClientesPorSucursal(5);
+				for(Cliente c : c2) {
+					System.out.println(c.getNombreApellido());
+				}
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				sucursalService.deleteSucursal(5);
+				break;
+			case 10:
+				sucursalService.addSucursal();
+				break;
+		}
 	}
 }

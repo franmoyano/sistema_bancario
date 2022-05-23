@@ -65,7 +65,7 @@ public class Cliente extends Persona {
 
 	@Override
 	public String toString() {
-		return getNombreApellido() + " | " + getDomicilio();
+		return "ID: " + getId() + " | Nombre: " + getNombreApellido() + " | Domicilio: " + getDomicilio() + "";
 	}
 
 }

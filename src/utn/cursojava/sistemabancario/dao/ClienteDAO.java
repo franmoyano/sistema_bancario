@@ -18,6 +18,8 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	private static ClienteDAO instance;
 
 	private ClienteDAO() {
+		clientes = new ArrayList<>();
+		cuentas = new ArrayList<>();
 	}
 
 	public synchronized static ClienteDAO getInstance() {
@@ -31,12 +33,13 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	public void addCliente(Cliente cliente) {
 		try {
 			conectar();
-			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio)" +
-					"VALUES(?, ?, ?)";
+			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio, id_sucursal)" +
+					"VALUES(?, ?, ?, ?)";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getNombreApellido());
 			statement.setString(3, cliente.getDomicilio());
+			statement.setInt(4, cliente.getSucursalId());
 			statement.executeUpdate();
 			desconectar();
 		} catch(SQLException e) {
@@ -48,28 +51,32 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	public void deleteCliente(String cuil) {
 		try {
 			conectar();
-
 			String query = "DELETE FROM clientes WHERE cuil = ?";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, cuil);
 			statement.executeUpdate();
-
-			desconectar();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			desconectar();
 		}
 	}
 
 	public List<Cliente> listarClientes() {
 		try {
-			String query = "SELECT nombre_apellido, cuil FROM clientes";
-			//consultarBase(query);  TODO: crear metodo
-			Cliente cliente = null;
-			List<Cliente> clientes = new ArrayList<>();
+			conectar();
+			String query = "SELECT * FROM clientes";
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			Cliente cliente;
+			clientes.clear();
 			while (result.next()) {
 				cliente = new Cliente();
-				cliente.setNombreApellido(result.getString(1));
-				cliente.setCuil(result.getString(2));
+				cliente.setId(result.getInt("id"));
+				cliente.setNombreApellido(result.getString("nombre_apellido"));
+				cliente.setCuil(result.getString("cuil"));
+				cliente.setDomicilio(result.getString("domicilio"));
+				cliente.setSucursalId(result.getInt("id_sucursal"));
 				clientes.add(cliente);
 			}
 			return clientes;
@@ -83,7 +90,30 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	@Override
 	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
-		return null;
+		try {
+			conectar();
+			String query = "SELECT * FROM clientes WHERE id_sucursal = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, nroSucursal);
+			result = statement.executeQuery();
+			Cliente cliente;
+			clientes.clear();
+			while (result.next()) {
+				cliente = new Cliente();
+				cliente.setId(result.getInt("id"));
+				cliente.setNombreApellido(result.getString("nombre_apellido"));
+				cliente.setCuil(result.getString("cuil"));
+				cliente.setDomicilio(result.getString("domicilio"));
+				cliente.setSucursalId(result.getInt("id_sucursal"));
+				clientes.add(cliente);
+			}
+			return clientes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			desconectar();
+		}
 	}
 
 	public List<Cuenta> listarCuentas() {

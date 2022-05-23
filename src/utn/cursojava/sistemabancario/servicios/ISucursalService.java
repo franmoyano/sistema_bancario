@@ -7,6 +7,8 @@ import java.util.List;
 public interface ISucursalService {
     void addSucursal(Sucursal sucursal);
 
+    void addSucursal();
+
     void deleteSucursal(Integer nroSucursal);
 
     List<Sucursal> listarSucursales();
