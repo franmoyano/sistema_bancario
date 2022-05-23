@@ -9,7 +9,7 @@ public interface ISucursalDAO {
 
     void deleteSucursal(Integer nroSucursal);
 
-    Sucursal findSucursalByNroSucursal(Integer nroSucursal);
+    Sucursal findSucursalById(Integer id);
 
     List<Sucursal> listarSucursales();
 }

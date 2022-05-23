@@ -4,6 +4,7 @@ import utn.cursojava.sistemabancario.dao.SucursalDAO;
 import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class SucursalServiceImpl implements ISucursalService {
     private SucursalDAO sucursalDao;
@@ -17,9 +18,18 @@ public class SucursalServiceImpl implements ISucursalService {
         sucursalDao.addSucursal(sucursal);
     }
 
+    public void addSucursal() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("*** CREANDO SUCURSAL ***" +
+                "\nNombre: ");
+        Sucursal sucursal = new Sucursal();
+        sucursal.setNombre(input.nextLine());
+        sucursalDao.addSucursal(sucursal);
+    }
+
     @Override
-    public void deleteSucursal(Integer nroSucursal) {
-        sucursalDao.deleteSucursal(nroSucursal);
+    public void deleteSucursal(Integer id) {
+        sucursalDao.deleteSucursal(id);
     }
 
     @Override
@@ -28,7 +38,7 @@ public class SucursalServiceImpl implements ISucursalService {
     }
 
     @Override
-    public Sucursal findSucursalByNroSucursal(Integer nroSucursal) {
-        return sucursalDao.findSucursalByNroSucursal(nroSucursal);
+    public Sucursal findSucursalById(Integer id) {
+        return sucursalDao.findSucursalById(id);
     }
 }

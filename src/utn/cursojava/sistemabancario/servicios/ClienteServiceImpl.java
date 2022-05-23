@@ -32,6 +32,8 @@ public class ClienteServiceImpl implements IClienteService {
 		cliente.setCuil(input.nextLine());
 		System.out.print("Domicilio: ");
 		cliente.setDomicilio(input.nextLine());
+		System.out.print("Sucursal: ");
+		cliente.setSucursalId(input.nextInt());
 		clienteDao.addCliente(cliente);
 	}
 

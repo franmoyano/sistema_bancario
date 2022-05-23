@@ -2,6 +2,7 @@ package utn.cursojava.sistemabancario.dao;
 
 import utn.cursojava.sistemabancario.modelo.Sucursal;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +23,36 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
 
     @Override
     public void addSucursal(Sucursal sucursal) {
-        //TODO: completar
+        try {
+            conectar();
+
+            String query = "INSERT INTO sucursales(nombre) VALUES (?)";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, sucursal.getNombre());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
     }
 
     @Override
-    public void deleteSucursal(Integer nroSucursal) {
-        //TODO: completar
+    public void deleteSucursal(Integer id) {
+        try {
+            conectar();
+
+            String query = "DELETE FROM sucursales WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
     }
 
     @Override
@@ -38,7 +63,7 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
 
 
     @Override
-    public Sucursal findSucursalByNroSucursal(Integer nroSucursal) {
+    public Sucursal findSucursalById(Integer id) {
         //TODO: completar
         return null;
     }

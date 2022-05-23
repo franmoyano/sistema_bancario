@@ -11,5 +11,5 @@ public interface ISucursalService {
 
     List<Sucursal> listarSucursales();
 
-    Sucursal findSucursalByNroSucursal(Integer nroSucursal);
+    Sucursal findSucursalById(Integer id);
 }
