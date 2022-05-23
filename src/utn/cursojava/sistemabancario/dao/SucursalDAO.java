@@ -39,7 +39,19 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
 
     @Override
     public void deleteSucursal(Integer nroSucursal) {
-        //TODO: completar
+        try {
+            conectar();
+
+            String query = "DELETE FROM sucursales WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, nroSucursal);
+            statement.executeUpdate();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
     }
 
     @Override

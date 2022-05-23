@@ -69,6 +69,7 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 			statement = connection.prepareStatement(query);
 			result = statement.executeQuery();
 			Cliente cliente;
+			clientes.clear();
 			while (result.next()) {
 				cliente = new Cliente();
 				cliente.setId(result.getInt("id"));
@@ -89,7 +90,30 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	@Override
 	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
-		return null;
+		try {
+			conectar();
+			String query = "SELECT * FROM clientes WHERE id_sucursal = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, nroSucursal);
+			result = statement.executeQuery();
+			Cliente cliente;
+			clientes.clear();
+			while (result.next()) {
+				cliente = new Cliente();
+				cliente.setId(result.getInt("id"));
+				cliente.setNombreApellido(result.getString("nombre_apellido"));
+				cliente.setCuil(result.getString("cuil"));
+				cliente.setDomicilio(result.getString("domicilio"));
+				cliente.setSucursalId(result.getInt("id_sucursal"));
+				clientes.add(cliente);
+			}
+			return clientes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			desconectar();
+		}
 	}
 
 	public List<Cuenta> listarCuentas() {
