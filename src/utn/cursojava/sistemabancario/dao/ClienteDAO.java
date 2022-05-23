@@ -18,8 +18,6 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	private static ClienteDAO instance;
 
 	private ClienteDAO() {
-		this.clientes = new ArrayList<>();
-		this.cuentas = new ArrayList<>();
 	}
 
 	public synchronized static ClienteDAO getInstance() {
@@ -33,13 +31,12 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	public void addCliente(Cliente cliente) {
 		try {
 			conectar();
-			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio, id_sucursal)" +
-					"VALUES(?, ?, ?, ?)";
+			String query = "INSERT INTO clientes (cuil, nombre_apellido, domicilio)" +
+					"VALUES(?, ?, ?)";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, cliente.getCuil());
 			statement.setString(2, cliente.getNombreApellido());
 			statement.setString(3, cliente.getDomicilio());
-			statement.setInt(4, cliente.getSucursalId());
 			statement.executeUpdate();
 			desconectar();
 		} catch(SQLException e) {
@@ -65,13 +62,10 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 
 	public List<Cliente> listarClientes() {
 		try {
-			conectar();
 			String query = "SELECT nombre_apellido, cuil FROM clientes";
-			statement = connection.prepareStatement(query);
-			result = statement.executeQuery();
+			//consultarBase(query);  TODO: crear metodo
 			Cliente cliente = null;
-			clientes.clear();
-
+			List<Cliente> clientes = new ArrayList<>();
 			while (result.next()) {
 				cliente = new Cliente();
 				cliente.setNombreApellido(result.getString(1));
@@ -88,35 +82,8 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	}
 
 	@Override
-	public List<Cliente> listarClientesPorSucursal(Integer idSucursal) {
-		try {
-			conectar();
-
-			String query = "SELECT id, cuil, nombre_apellido, domicilio, id_sucursal FROM clientes WHERE id_sucursal = ?";
-			statement = connection.prepareStatement(query);
-			statement.setInt(1, idSucursal);
-			result = statement.executeQuery();
-			Cliente cliente = null;
-			clientes.clear();
-
-			while (result.next()) {
-				cliente = new Cliente();
-				cliente.setId(result.getInt(1));
-				cliente.setCuil(result.getString(2));
-				cliente.setNombreApellido(result.getString(3));
-				cliente.setDomicilio(result.getString(4));
-				cliente.setSucursalId(result.getInt(5));
-				clientes.add(cliente);
-			}
-
-			return clientes;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			desconectar();
-		}
+	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
+		return null;
 	}
 
 	public List<Cuenta> listarCuentas() {

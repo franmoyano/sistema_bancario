@@ -5,31 +5,23 @@ import java.util.List;
 
 public class Sucursal {
 	// Atributos
-	private Integer id;
 	private String nombre;
+	private Integer numSucursal;
 
 	private List<Cliente> listaClientes;
 	private List<Empleado> listaEmpleados;
 
-	public Sucursal(String nombre, Integer id) {
+	public Sucursal(String nombre, Integer numSucursal) {
 		this.nombre = nombre;
-		this.id = id;
+		this.numSucursal = numSucursal;
 		this.listaClientes = new ArrayList<Cliente>();
 		this.listaEmpleados = new ArrayList<Empleado>();
-	}
-
-	public Sucursal() {
-
 	}
 
 	// METODOS
 
 	public String getNombre() {
 		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public List<Empleado> getListaEmpleados() {
@@ -40,12 +32,20 @@ public class Sucursal {
 		this.listaEmpleados = listaEmpleados;
 	}
 
-	public int getId() {
-		return id;
+	public void setNumSucursal(Integer numSucursal) {
+		this.numSucursal = numSucursal;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getNumSucursal() {
+		return numSucursal;
+	}
+
+	public void setNumSucursal(int numSucursal) {
+		this.numSucursal = numSucursal;
 	}
 
 	public List<Cliente> getListaClientes() {
