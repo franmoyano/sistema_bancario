@@ -40,11 +40,23 @@ public class SistemaBancario {
 //		Cuenta c = new Cuenta();
 //		System.out.println(c.getCbu());
 		Scanner input = new Scanner(System.in);
+		System.out.print("**** MENU PRINCIPAL ****" +
+				"\n1) Agregar Cliente" +
+				"\n2) Agregar cuenta a Cliente" +
+				"\n3) Listar Clientes por sucursal" +
+				"\n4) Listar Clientes de una sucursal" +
+				"\n5) Extraer dinero" +
+				"\n6) Consultar Saldo" +
+				"\n7) Realizar Deposito" +
+				"\n8) Realizar transferencias" +
+				"\n9) Eliminar una sucursal" +
+				"\n\nOPCION: ");
 		Integer opcion = input.nextInt();
 		menu(opcion);
 	}
 
 	static void menu(Integer opcion) {
+
 		switch (opcion) {
 			case 1:
 				clienteService.addCliente();
@@ -73,7 +85,7 @@ public class SistemaBancario {
 			case 8:
 				break;
 			case 9:
-				sucursalService.deleteSucursal(3);
+				sucursalService.deleteSucursal(6);
 				break;
 			case 10:
 				sucursalService.addSucursal();
