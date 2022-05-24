@@ -8,10 +8,12 @@ import utn.cursojava.sistemabancario.dao.ClienteDAO;
 import utn.cursojava.sistemabancario.dao.IClienteDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
+import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 public class ClienteServiceImpl implements IClienteService {
 
 	private ClienteDAO clienteDao;
+	private SucursalServiceImpl sucursalService = new SucursalServiceImpl();
 
 	public ClienteServiceImpl() {
 		this.clienteDao = ClienteDAO.getInstance();
@@ -23,6 +25,11 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	public void addCliente() {
+		if(sucursalService.listarSucursales().size() == 0) {
+			System.out.println("\nPara ingresar clientes, debe crear al menos una sucursal." +
+					"\nUsted esta siendo redirigido...");
+			sucursalService.addSucursal();
+		}
 		Scanner input = new Scanner(System.in);
 		Cliente cliente = new Cliente();
 		System.out.println("*** CREANDO CLIENTE ***");

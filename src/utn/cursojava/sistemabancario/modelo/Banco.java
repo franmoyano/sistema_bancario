@@ -18,6 +18,10 @@ public class Banco {
 		this.cuentas = new ArrayList<>();
 	}
 
+	public Banco() {
+
+	}
+
 	public Integer getId() {
 		return id;
 	}
