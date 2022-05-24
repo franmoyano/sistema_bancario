@@ -5,7 +5,7 @@ import utn.cursojava.sistemabancario.modelo.Cuenta;
 
 public interface ICuentaService {
 
-	Cuenta crearCuenta(TipoCuenta tipoCuenta);
+	void crearCuenta();
 
 	Double extraer(Double monto);
 

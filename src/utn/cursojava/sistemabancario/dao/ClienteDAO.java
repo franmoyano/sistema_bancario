@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utn.cursojava.sistemabancario.constants.TipoCuenta;
-import utn.cursojava.sistemabancario.modelo.CajaDeAhorro;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.modelo.CuentaCorriente;
 
 public class ClienteDAO extends DAO implements IClienteDAO {
 

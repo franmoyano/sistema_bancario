@@ -11,7 +11,7 @@ import utn.cursojava.sistemabancario.modelo.Cuenta;
 
 public class ClienteServiceImpl implements IClienteService {
 
-	private IClienteDAO clienteDao;
+	private ClienteDAO clienteDao;
 
 	public ClienteServiceImpl() {
 		this.clienteDao = ClienteDAO.getInstance();

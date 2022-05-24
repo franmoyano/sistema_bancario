@@ -20,7 +20,6 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
         return instance;
     }
 
-
     @Override
     public void addCuenta(Cuenta cuenta) {
         //TODO: completar metodo

@@ -1,6 +1,8 @@
 package utn.cursojava.sistemabancario.main;
 
+import utn.cursojava.sistemabancario.dao.ClienteDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
+import utn.cursojava.sistemabancario.modelo.Cuenta;
 import utn.cursojava.sistemabancario.servicios.ClienteServiceImpl;
 import utn.cursojava.sistemabancario.servicios.CuentaServiceImpl;
 import utn.cursojava.sistemabancario.servicios.SucursalServiceImpl;
@@ -34,6 +36,9 @@ public class SistemaBancario {
 	static SucursalServiceImpl sucursalService = new SucursalServiceImpl();
 
 	public static void main(String[] args) {
+//		PRUEBAS CON CUENTAS y CBUs aleatorios
+//		Cuenta c = new Cuenta();
+//		System.out.println(c.getCbu());
 		Scanner input = new Scanner(System.in);
 		Integer opcion = input.nextInt();
 		menu(opcion);
@@ -54,7 +59,7 @@ public class SistemaBancario {
 				}
 				break;
 			case 4:
-				List<Cliente> c2 = clienteService.listarClientesPorSucursal(5);
+				List<Cliente> c2 = clienteService.listarClientesPorSucursal(3);
 				for(Cliente c : c2) {
 					System.out.println(c.getNombreApellido());
 				}
@@ -68,7 +73,7 @@ public class SistemaBancario {
 			case 8:
 				break;
 			case 9:
-				sucursalService.deleteSucursal(5);
+				sucursalService.deleteSucursal(3);
 				break;
 			case 10:
 				sucursalService.addSucursal();
