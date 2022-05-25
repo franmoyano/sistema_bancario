@@ -7,7 +7,7 @@ import java.util.List;
 public interface ISucursalService {
     void addSucursal(Sucursal sucursal);
 
-    void addSucursal();
+    void addSucursal(Integer bancoId);
 
     void deleteSucursal(Integer nroSucursal);
 

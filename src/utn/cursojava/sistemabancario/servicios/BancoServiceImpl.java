@@ -13,14 +13,18 @@ public class BancoServiceImpl implements IBancoService {
         this.bancoDAO = BancoDAO.getInstance();
     }
 
+    /**
+     *
+     * @return Devuelve el ID del NUEVO BANCO, luego de ser insertado en la BBDD
+     */
     @Override
-    public void addBanco() {
+    public Integer addBanco() {
         Scanner input = new Scanner(System.in);
         Banco banco = new Banco();
         System.out.print("\n*** CREANDO BANCO ***" +
                 "\nIngrese el nombre: ");
         banco.setNombre(input.nextLine());
-        bancoDAO.addBanco(banco);
+        return bancoDAO.addBanco(banco);
     }
 
     @Override

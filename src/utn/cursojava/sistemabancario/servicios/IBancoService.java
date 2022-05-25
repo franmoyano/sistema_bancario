@@ -5,7 +5,8 @@ import utn.cursojava.sistemabancario.modelo.Banco;
 import java.util.List;
 
 public interface IBancoService {
-    void addBanco();
+
+    Integer addBanco();
 
     void addBanco(Banco banco);
 

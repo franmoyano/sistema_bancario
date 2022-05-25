@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IBancoDAO {
 
-    void addBanco(Banco banco);
+    Integer addBanco(Banco banco);
 
     void deleteBancoById(Integer id);
 

@@ -19,19 +19,19 @@ public class SucursalServiceImpl implements ISucursalService {
     }
 
     @Override
-    public void addSucursal() {
+    public void addSucursal(Integer bancoId) {
         Sucursal sucursal = new Sucursal();
         Scanner input = new Scanner(System.in);
-        System.out.println("*** CREANDO SUCURSAL ***");
+        System.out.println("\n*** CREANDO SUCURSAL ***");
         System.out.print("Nombre: ");
         sucursal.setNombre(input.nextLine());
-
+        sucursal.setBancoId(bancoId);
         sucursalDao.addSucursal(sucursal);
     }
 
     @Override
-    public void deleteSucursal(Integer nroSucursal) {
-        sucursalDao.deleteSucursal(nroSucursal);
+    public void deleteSucursal(Integer id) {
+        sucursalDao.deleteSucursal(id);
     }
 
     @Override

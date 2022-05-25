@@ -60,7 +60,7 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 		}
 	}
 
-	public List<Cliente> listarClientes() {
+	public List<Cliente> findClientes() {
 		try {
 			conectar();
 			String query = "SELECT * FROM clientes";
@@ -78,6 +78,31 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 				clientes.add(cliente);
 			}
 			return clientes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			desconectar();
+		}
+	}
+
+	@Override
+	public Cliente findClienteById(Integer id) {
+		try {
+			conectar();
+			String query = "SELECT * FROM clientes WHERE id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			result = statement.executeQuery();
+			Cliente cliente = new Cliente();
+			while (result.next()) {
+				cliente.setId(result.getInt("id"));
+				cliente.setNombreApellido(result.getString("nombre_apellido"));
+				cliente.setCuil(result.getString("cuil"));
+				cliente.setDomicilio(result.getString("domicilio"));
+				cliente.setSucursalId(result.getInt("id_sucursal"));
+			}
+			return cliente;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

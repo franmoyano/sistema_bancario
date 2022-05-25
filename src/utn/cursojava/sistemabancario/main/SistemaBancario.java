@@ -1,15 +1,6 @@
 package utn.cursojava.sistemabancario.main;
 
-import utn.cursojava.sistemabancario.dao.ClienteDAO;
-import utn.cursojava.sistemabancario.modelo.Cliente;
-import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.servicios.ClienteServiceImpl;
-import utn.cursojava.sistemabancario.servicios.CuentaServiceImpl;
 import utn.cursojava.sistemabancario.servicios.MainService;
-import utn.cursojava.sistemabancario.servicios.SucursalServiceImpl;
-
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Tomando como punto de partida el diagrama de Clases del sistema de Gestión

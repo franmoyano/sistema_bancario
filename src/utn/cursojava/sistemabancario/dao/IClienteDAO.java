@@ -11,7 +11,9 @@ public interface IClienteDAO {
 
 	void deleteCliente(String cuil);
 
-	List<Cliente> listarClientes();
+	List<Cliente> findClientes();
+
+	Cliente findClienteById(Integer id);
 
 	List<Cliente> listarClientesPorSucursal(Integer nroSucursal);
 

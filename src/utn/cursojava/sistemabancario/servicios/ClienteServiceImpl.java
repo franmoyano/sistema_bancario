@@ -3,12 +3,9 @@ package utn.cursojava.sistemabancario.servicios;
 import java.util.List;
 import java.util.Scanner;
 
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.dao.ClienteDAO;
-import utn.cursojava.sistemabancario.dao.IClienteDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 public class ClienteServiceImpl implements IClienteService {
 
@@ -25,11 +22,11 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	public void addCliente() {
-		if(sucursalService.listarSucursales().size() == 0) {
-			System.out.println("\nPara ingresar clientes, debe crear al menos una sucursal." +
-					"\nUsted esta siendo redirigido...");
-			sucursalService.addSucursal();
-		}
+//		if(sucursalService.listarSucursales().size() == 0) {
+//			System.out.println("\nPara ingresar clientes, debe crear al menos una sucursal." +
+//					"\nUsted esta siendo redirigido...");
+//			sucursalService.addSucursal();
+//		}
 		Scanner input = new Scanner(System.in);
 		Cliente cliente = new Cliente();
 		System.out.println("*** CREANDO CLIENTE ***");
@@ -50,11 +47,6 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public List<Cliente> listarClientes() {
-		return clienteDao.listarClientes();
-	}
-
-	@Override
 	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
 		return clienteDao.listarClientesPorSucursal(nroSucursal);
 	}
@@ -65,10 +57,24 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public List<Cliente> findClients() {
-		return clienteDao.listarClientes();
+	public List<Cliente> findClientes() {
+		return clienteDao.findClientes();
 	}
 
+	@Override
+	public Cliente findClienteById() {
+		Scanner input = new Scanner(System.in);
+		Integer id;
+		System.out.print("\nIngrese el ID del cliente a seleccionar" +
+				"\nID: ");
+		id = input.nextInt();
+		return clienteDao.findClienteById(id);
+	}
+
+	@Override
+	public Cliente findClienteById(Integer id) {
+		return clienteDao.findClienteById(id);
+	}
 
 
 }

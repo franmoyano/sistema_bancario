@@ -25,10 +25,11 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
     public void addSucursal(Sucursal sucursal) {
         try {
             conectar();
-            String query = "INSERT INTO sucursales(nombre)" +
-                    "VALUES(?)";
+            String query = "INSERT INTO sucursales(nombre, id_banco)" +
+                    "VALUES(?, ?)";
             statement = connection.prepareStatement(query);
             statement.setString(1, sucursal.getNombre());
+            statement.setInt(2, sucursal.getBancoId());
             statement.executeUpdate();
 
             desconectar();
@@ -65,7 +66,7 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
             while (result.next()) {
                 sucursal = new Sucursal();
                 sucursal.setNombre(result.getString("nombre"));
-                sucursal.setNumSucursal(result.getInt("id"));
+                sucursal.setId(result.getInt("id"));
                 sucursales.add(sucursal);
             }
             return sucursales;

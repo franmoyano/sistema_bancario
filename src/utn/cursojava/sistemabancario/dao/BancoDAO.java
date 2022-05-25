@@ -2,7 +2,9 @@ package utn.cursojava.sistemabancario.dao;
 
 import utn.cursojava.sistemabancario.modelo.Banco;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +23,25 @@ public class BancoDAO extends DAO implements IBancoDAO {
     }
 
     @Override
-    public void addBanco(Banco banco) {
+    public Integer addBanco(Banco banco) {
         try {
             conectar();
             String query = "INSERT INTO bancos(nombre) VALUES(?)";
-            statement = connection.prepareStatement(query);
+            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, banco.getNombre());
             statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if(generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                return null;
+            }
+
         } catch(SQLException e) {
             e.printStackTrace();
+            return null;
         } finally {
             desconectar();
         }
@@ -62,5 +74,4 @@ public class BancoDAO extends DAO implements IBancoDAO {
         }
         return null;
     }
-
 }

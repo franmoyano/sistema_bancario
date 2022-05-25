@@ -2,9 +2,9 @@ package utn.cursojava.sistemabancario.servicios;
 
 import utn.cursojava.sistemabancario.modelo.Banco;
 import utn.cursojava.sistemabancario.modelo.Cliente;
+import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class MainService {
@@ -12,27 +12,27 @@ public class MainService {
     static CuentaServiceImpl cuentaService = new CuentaServiceImpl();
     static SucursalServiceImpl sucursalService = new SucursalServiceImpl();
     static BancoServiceImpl bancoService = new BancoServiceImpl();
+    static Integer bancoId;
 
     public static void optionSelector() {
         Scanner input = new Scanner(System.in);
         List<Banco> bancos = bancoService.listarBancos();
         if(bancos.size() == 0) {
             System.out.println("\nActualmente no existe ningun banco en el sistema." +
-                    "\nPara continuar, debe crear un nuevo banco");
-            bancoService.addBanco();
+                    "\nPara continuar, debe crear un nuevo banco, y dos sucursales");
+            bancoId = bancoService.addBanco();
+            sucursalService.addSucursal(bancoId);
         }
 
 
         System.out.print("\n**** BANCO ****" +
                 "\n1) Agregar Cliente" +
                 "\n2) Agregar cuenta a Cliente" +
-                "\n3) Listar Clientes por sucursal" +
+                "\n3) Listar clientes" +
                 "\n4) Listar Clientes de una sucursal" +
-                "\n5) Extraer dinero" +
-                "\n6) Consultar Saldo" +
-                "\n7) Realizar Deposito" +
-                "\n8) Realizar transferencias" +
-                "\n9) Eliminar una sucursal" +
+                "\n5) Seleccionar cliente" +
+                "\n9) Agregar sucursal" +
+                "\n10) Eliminar sucursal" +
                 "\n\nOPCION: ");
         Integer opcion = input.nextInt();
         menu(opcion);
@@ -47,11 +47,7 @@ public class MainService {
             case 2:
                 break;
             case 3:
-                clienteService.listarClientes();
-                List<Cliente> c1 = clienteService.listarClientes();
-                for(Cliente c : c1) {
-                    System.out.println(c.getNombreApellido());
-                }
+                imprimirClientes(clienteService.findClientes());
                 break;
             case 4:
                 List<Cliente> c2 = clienteService.listarClientesPorSucursal(3);
@@ -60,6 +56,8 @@ public class MainService {
                 }
                 break;
             case 5:
+                Cliente c3 = clienteService.findClienteById();
+                System.out.println(c3);
                 break;
             case 6:
                 break;
@@ -68,11 +66,23 @@ public class MainService {
             case 8:
                 break;
             case 9:
-                sucursalService.deleteSucursal(6);
+                sucursalService.addSucursal(bancoId);
                 break;
             case 10:
-                sucursalService.addSucursal();
+                sucursalService.deleteSucursal(6);
                 break;
+        }
+    }
+
+    static void imprimirClientes(List<Cliente> clientes) {
+        for(Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
+
+    static void imprimirSucursales(List<Sucursal> sucursales) {
+        for(Sucursal s : sucursales) {
+            System.out.println(s);
         }
     }
 }
