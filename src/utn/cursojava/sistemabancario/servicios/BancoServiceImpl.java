@@ -33,6 +33,11 @@ public class BancoServiceImpl implements IBancoService {
     }
 
     @Override
+    public Banco findById(Integer id){
+        return bancoDAO.findById(id);
+    }
+
+    @Override
     public void deleteBancoById(Integer id) {
         bancoDAO.deleteBancoById(id);
     }

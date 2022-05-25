@@ -49,7 +49,28 @@ public class BancoDAO extends DAO implements IBancoDAO {
 
     @Override
     public void deleteBancoById(Integer id) {
+    }
 
+    @Override
+    public Banco findById(Integer id) {
+        try {
+            conectar();
+            Banco banco = new Banco();
+            String query = "SELECT * FROM bancos WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            result = statement.executeQuery();
+            if(result.next()) {
+                banco.setId(result.getInt("id"));
+                banco.setNombre(result.getString("nombre"));
+            }
+            return banco;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            desconectar();
+        }
     }
 
     @Override
@@ -64,6 +85,7 @@ public class BancoDAO extends DAO implements IBancoDAO {
             while(result.next()) {
                 banco = new Banco();
                 banco.setNombre(result.getString("nombre"));
+                banco.setId(result.getInt("id"));
                 bancos.add(banco);
             }
             return bancos;

@@ -21,7 +21,8 @@ public class ClienteServiceImpl implements IClienteService {
 		clienteDao.addCliente(cliente);
 	}
 
-	public void addCliente() {
+	@Override
+	public void addCliente(Integer sucursalId) {
 //		if(sucursalService.listarSucursales().size() == 0) {
 //			System.out.println("\nPara ingresar clientes, debe crear al menos una sucursal." +
 //					"\nUsted esta siendo redirigido...");
@@ -36,8 +37,8 @@ public class ClienteServiceImpl implements IClienteService {
 		cliente.setCuil(input.nextLine());
 		System.out.print("Domicilio: ");
 		cliente.setDomicilio(input.nextLine());
-		System.out.print("Nro Sucursal: ");
-		cliente.setSucursalId(input.nextInt());
+//		System.out.print("Nro Sucursal: ");
+		cliente.setSucursalId(sucursalId);
 		clienteDao.addCliente(cliente);
 	}
 

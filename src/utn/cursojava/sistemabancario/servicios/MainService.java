@@ -12,18 +12,40 @@ public class MainService {
     static CuentaServiceImpl cuentaService = new CuentaServiceImpl();
     static SucursalServiceImpl sucursalService = new SucursalServiceImpl();
     static BancoServiceImpl bancoService = new BancoServiceImpl();
-    static Integer bancoId;
+    static Banco banco;
+    static Sucursal sucursal;
 
     public static void optionSelector() {
         Scanner input = new Scanner(System.in);
+
+        //Instancio una lista de bancos, y verifico:
+        //      Si existe un banco, se usa.
+        //      De lo contrario, se genera uno.
         List<Banco> bancos = bancoService.listarBancos();
+
+
         if(bancos.size() == 0) {
             System.out.println("\nActualmente no existe ningun banco en el sistema." +
-                    "\nPara continuar, debe crear un nuevo banco, y dos sucursales");
-            bancoId = bancoService.addBanco();
-            sucursalService.addSucursal(bancoId);
-        }
+                    "\nPara continuar, debe crear un nuevo banco y una sucursal");
 
+            // Al agregar un banco se obtiene su ID, y luego se setea
+            // al banco que está como atributo de esta clase
+            Integer bancoId = bancoService.addBanco();
+            banco = bancoService.findById(bancoId);
+            sucursalService.addSucursal(bancoId);
+        } else {
+            banco = bancos.get(0);
+            List<Sucursal> sucursales = sucursalService.listarSucursales();
+            
+            if(sucursales.size() == 0) {
+                System.out.println("\nActualmente no existe ninguna sucursal en el sistema." +
+                        "\nEsta siendo redirigido a 'Crear sucursal'...");
+                Integer sucuralId = sucursalService.addSucursal(banco.getId());
+                sucursal = sucursalService.findById(sucuralId);
+            } else {
+
+            }
+        }
 
         System.out.print("\n**** BANCO ****" +
                 "\n1) Agregar Cliente" +
@@ -42,7 +64,7 @@ public class MainService {
 
         switch (opcion) {
             case 1:
-                clienteService.addCliente();
+                clienteService.addCliente(sucursal.getId());
                 break;
             case 2:
                 break;
@@ -66,7 +88,7 @@ public class MainService {
             case 8:
                 break;
             case 9:
-                sucursalService.addSucursal(bancoId);
+                sucursalService.addSucursal(banco.getId());
                 break;
             case 10:
                 sucursalService.deleteSucursal(6);

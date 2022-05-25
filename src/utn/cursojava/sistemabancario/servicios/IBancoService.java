@@ -12,5 +12,7 @@ public interface IBancoService {
 
     void deleteBancoById(Integer id);
 
+    Banco findById(Integer id);
+
     List<Banco> listarBancos();
 }

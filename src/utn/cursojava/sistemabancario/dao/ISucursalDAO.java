@@ -5,7 +5,7 @@ import utn.cursojava.sistemabancario.modelo.Sucursal;
 import java.util.List;
 
 public interface ISucursalDAO {
-    void addSucursal(Sucursal sucursal);
+    Integer addSucursal(Sucursal sucursal);
 
     void deleteSucursal(Integer nroSucursal);
 

@@ -19,14 +19,14 @@ public class SucursalServiceImpl implements ISucursalService {
     }
 
     @Override
-    public void addSucursal(Integer bancoId) {
+    public Integer addSucursal(Integer bancoId) {
         Sucursal sucursal = new Sucursal();
         Scanner input = new Scanner(System.in);
         System.out.println("\n*** CREANDO SUCURSAL ***");
         System.out.print("Nombre: ");
         sucursal.setNombre(input.nextLine());
         sucursal.setBancoId(bancoId);
-        sucursalDao.addSucursal(sucursal);
+        return sucursalDao.addSucursal(sucursal);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class SucursalServiceImpl implements ISucursalService {
     }
 
     @Override
-    public Sucursal findSucursalByNroSucursal(Integer nroSucursal) {
-        return sucursalDao.findSucursalByNroSucursal(nroSucursal);
+    public Sucursal findById(Integer id) {
+        return sucursalDao.findSucursalByNroSucursal(id);
     }
 }

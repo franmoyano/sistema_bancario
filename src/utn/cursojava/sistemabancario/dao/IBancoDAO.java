@@ -8,6 +8,8 @@ public interface IBancoDAO {
 
     Integer addBanco(Banco banco);
 
+    Banco findById(Integer id);
+
     void deleteBancoById(Integer id);
 
     List<Banco> listarBancos();

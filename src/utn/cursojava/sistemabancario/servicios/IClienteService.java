@@ -9,6 +9,8 @@ public interface IClienteService {
 
 	void addCliente(Cliente cliente);
 
+	void addCliente(Integer sucursalId);
+
 	void deleteCliente(String cuil);
 	
 	List<Cliente> listarClientesPorSucursal(Integer nroSucursal);
