@@ -1,5 +1,6 @@
 package utn.cursojava.sistemabancario.servicios;
 
+import utn.cursojava.sistemabancario.exceptions.MenorACeroException;
 import utn.cursojava.sistemabancario.modelo.Banco;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Sucursal;
@@ -61,17 +62,6 @@ public class MainService {
 
         do {
             try {
-                /**
-                 * 1) Agregar Cliente
-                 * 2) Agregar cuenta a Cliente
-                 * 3) Listar Clientes por sucursal
-                 * 4) Listar Clientes de una sucursal
-                 * 5) Extraer dinero
-                 * 6) Consultar Saldo
-                 * 7) Realizar Deposito
-                 * 8) Realizar transferencias
-                 * 9) Eliminar una sucursa
-                 */
             System.out.print("\n**** BANCO ****" +
                     "\n1) Agregar Cliente" +
                     "\n2) Agregar cuenta a cliente" +
@@ -83,14 +73,20 @@ public class MainService {
                     "\n8) SALIR" +
                     "\n\nOPCION: ");
             Integer opcion = input.nextInt();
+            if(opcion <= 0) {
+                throw new MenorACeroException();
+            }
             if(opcion == 8) {
                 System.out.println("SALIENDO...");
                 salir = true;
+            } else {
+                menu(opcion);
             }
-            menu(opcion);
             } catch (InputMismatchException e) {
                 System.out.println("Debe ingresar opciones numericas!");
                 input.next();
+            } catch (MenorACeroException e) {
+                System.out.println(e.getMessage());
             }
         } while(!salir);
     }
