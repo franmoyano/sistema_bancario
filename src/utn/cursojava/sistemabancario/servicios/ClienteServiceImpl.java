@@ -78,4 +78,8 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 
+	@Override
+	public void dashboardCliente(Cliente cliente) {
+		System.out.println("");
+	}
 }

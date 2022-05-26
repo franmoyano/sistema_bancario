@@ -23,4 +23,6 @@ public interface IClienteService {
 
 	Cliente findClienteById(Integer id);
 
+	void dashboardCliente(Cliente cliente);
+
 }

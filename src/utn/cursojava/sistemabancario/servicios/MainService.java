@@ -111,8 +111,8 @@ public class MainService {
                 break;
             case 5:
                 //TODO: aqui debe ingresar como usuario | Completar metodo
-                Cliente c3 = clienteService.findClienteById();
-                System.out.println(c3);
+                System.out.println("Ingrese su cuil: ");
+                
                 break;
             case 6:
                 sucursalService.addSucursal(banco.getId());
