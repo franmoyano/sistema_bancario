@@ -6,6 +6,7 @@ import java.util.Scanner;
 import utn.cursojava.sistemabancario.dao.ClienteDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
+import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 public class ClienteServiceImpl implements IClienteService {
 
@@ -30,14 +31,13 @@ public class ClienteServiceImpl implements IClienteService {
 //		}
 		Scanner input = new Scanner(System.in);
 		Cliente cliente = new Cliente();
-		System.out.println("*** CREANDO CLIENTE ***");
+		System.out.println("\n*** CREANDO CLIENTE ***");
 		System.out.print("Nombre y apellido: ");
 		cliente.setNombreApellido(input.nextLine());
 		System.out.print("Cuil (SIN GUIONES NI ESPACIOS): ");
 		cliente.setCuil(input.nextLine());
 		System.out.print("Domicilio: ");
 		cliente.setDomicilio(input.nextLine());
-//		System.out.print("Nro Sucursal: ");
 		cliente.setSucursalId(sucursalId);
 		clienteDao.addCliente(cliente);
 	}

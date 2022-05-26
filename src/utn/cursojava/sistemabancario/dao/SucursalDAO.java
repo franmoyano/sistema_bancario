@@ -41,7 +41,7 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
             } else {
                 return null;
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -93,7 +93,25 @@ public class SucursalDAO extends DAO implements ISucursalDAO {
 
     @Override
     public Sucursal findSucursalByNroSucursal(Integer nroSucursal) {
-        //TODO: completar
-        return null;
+        try {
+            conectar();
+            String query = "SELECT * FROM sucursales WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, nroSucursal);
+            result = statement.executeQuery();
+            Sucursal sucursal = new Sucursal();
+            if(result.next()) {
+                sucursal.setNombre(result.getString("nombre"));
+                sucursal.setId(result.getInt("id"));
+                sucursal.setBancoId(result.getInt("id_banco"));
+            }
+            return sucursal;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            desconectar();
+        }
     }
 }

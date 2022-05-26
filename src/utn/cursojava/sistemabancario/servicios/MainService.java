@@ -4,7 +4,9 @@ import utn.cursojava.sistemabancario.modelo.Banco;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Sucursal;
 
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MainService {
@@ -32,32 +34,65 @@ public class MainService {
             // al banco que está como atributo de esta clase
             Integer bancoId = bancoService.addBanco();
             banco = bancoService.findById(bancoId);
-            sucursalService.addSucursal(bancoId);
+            Integer sucursalId = sucursalService.addSucursal(bancoId);
+            sucursal = sucursalService.findById(sucursalId);
         } else {
             banco = bancos.get(0);
+            System.out.println("\nBIENVENIDO AL BANCO " + banco.getNombre().toUpperCase());
             List<Sucursal> sucursales = sucursalService.listarSucursales();
-            
+
             if(sucursales.size() == 0) {
                 System.out.println("\nActualmente no existe ninguna sucursal en el sistema." +
                         "\nEsta siendo redirigido a 'Crear sucursal'...");
-                Integer sucuralId = sucursalService.addSucursal(banco.getId());
-                sucursal = sucursalService.findById(sucuralId);
+                Integer sucursalId = sucursalService.addSucursal(banco.getId());
+                sucursal = sucursalService.findById(sucursalId);
+            } else if(sucursales.size() == 1){
+                sucursal = sucursales.get(0);
+                System.out.println("SUCURSAL " + sucursal.getNombre());
             } else {
-
+                System.out.println("Seleccione una sucursal para operar");
+                imprimirSucursales(sucursales);
+                int opcion = input.nextInt();
+                sucursal = sucursales.get(opcion - 1);
             }
         }
 
-        System.out.print("\n**** BANCO ****" +
-                "\n1) Agregar Cliente" +
-                "\n2) Agregar cuenta a Cliente" +
-                "\n3) Listar clientes" +
-                "\n4) Listar Clientes de una sucursal" +
-                "\n5) Seleccionar cliente" +
-                "\n9) Agregar sucursal" +
-                "\n10) Eliminar sucursal" +
-                "\n\nOPCION: ");
-        Integer opcion = input.nextInt();
-        menu(opcion);
+        boolean salir = false;
+
+        do {
+            try {
+                /**
+                 * 1) Agregar Cliente
+                 * 2) Agregar cuenta a Cliente
+                 * 3) Listar Clientes por sucursal
+                 * 4) Listar Clientes de una sucursal
+                 * 5) Extraer dinero
+                 * 6) Consultar Saldo
+                 * 7) Realizar Deposito
+                 * 8) Realizar transferencias
+                 * 9) Eliminar una sucursa
+                 */
+            System.out.print("\n**** BANCO ****" +
+                    "\n1) Agregar Cliente" +
+                    "\n2) Agregar cuenta a cliente" +
+                    "\n3) Listar clientes" +
+                    "\n4) Listar Clientes de una sucursal" +
+                    "\n5) Ingresar como cliente" +
+                    "\n6) Agregar sucursal" +
+                    "\n7) Eliminar sucursal" +
+                    "\n8) SALIR" +
+                    "\n\nOPCION: ");
+            Integer opcion = input.nextInt();
+            if(opcion == 8) {
+                System.out.println("SALIENDO...");
+                salir = true;
+            }
+            menu(opcion);
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar opciones numericas!");
+                input.next();
+            }
+        } while(!salir);
     }
 
     static void menu(Integer opcion) {
@@ -72,27 +107,25 @@ public class MainService {
                 imprimirClientes(clienteService.findClientes());
                 break;
             case 4:
+                //TODO: solicitar nro de sucursal al usuario
                 List<Cliente> c2 = clienteService.listarClientesPorSucursal(3);
                 for(Cliente c : c2) {
                     System.out.println(c.getNombreApellido());
                 }
                 break;
             case 5:
+                //TODO: aqui debe ingresar como usuario | Completar metodo
                 Cliente c3 = clienteService.findClienteById();
                 System.out.println(c3);
                 break;
             case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
                 sucursalService.addSucursal(banco.getId());
                 break;
-            case 10:
+            case 7:
                 sucursalService.deleteSucursal(6);
                 break;
+            default:
+                System.out.println("Opcion invalida!");
         }
     }
 
@@ -103,8 +136,10 @@ public class MainService {
     }
 
     static void imprimirSucursales(List<Sucursal> sucursales) {
+        int i = 1;
         for(Sucursal s : sucursales) {
-            System.out.println(s);
+            System.out.println(i + ") " + s.getNombre());
+            i++;
         }
     }
 }
