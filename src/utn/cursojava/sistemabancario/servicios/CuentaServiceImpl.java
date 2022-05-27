@@ -33,13 +33,16 @@ public class CuentaServiceImpl implements ICuentaService {
 	}
 
 	@Override
+	public Integer actualizarCuenta(Cuenta cuenta) {
+		return cuentaDao.actualizarCuenta(cuenta);
+	}
+
+	@Override
 	public void crearCuenta(Integer idCliente) {
 		Scanner input = new Scanner(System.in);
 		Cuenta cuenta = new Cuenta();
-
-//		System.out.println("\n*** CREANDO CUENTA ***");
 		cuenta.setClienteId(idCliente);
-		cuenta.setTipoCuenta(TipoCuenta.CA);
+		cuenta.setTipoCuenta(TipoCuenta.CA.toString());
 		cuentaDao.addCuenta(cuenta);
 	}
 

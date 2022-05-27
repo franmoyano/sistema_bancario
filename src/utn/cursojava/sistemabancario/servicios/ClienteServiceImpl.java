@@ -89,6 +89,7 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public void dashboardCliente(Cliente cliente) {
+		//TODO: mejorar metodo. Agregar funcionalidad para elegir cuenta en especifico
 		Scanner input = new Scanner(System.in);
 		List<Cuenta> cuentas = new ArrayList<>();
 		Cuenta cuenta = new Cuenta();
@@ -98,26 +99,47 @@ public class ClienteServiceImpl implements IClienteService {
 			cuentaService.crearCuenta(cliente.getId());
 		}
 
-		System.out.println("\n**** BIENVENIDO, " +  cliente.getNombreApellido().toUpperCase() + " ****" +
-				"\n1) Consultar saldo" +
-				"\n2) Depositar" +
-				"\n3) Extraer" +
-				"\n4) Transferir" +
-				"\n5) Volver" +
-				"\n\nOPCION: ");
-		int opcion = input.nextInt();
-		switch (opcion) {
-			case 1:
-				//TODO: CONSULTAR SALDO
-				break;
-			case 2:
-				//TODO: DEPOSITAR
-				break;
-			case 3:
-				//TODO: EXTRAER
-				break;
-			case 4:
-				//TODO: TRANSFERIR
-		}
+		int opcion;
+		boolean salir = false;
+		cuentas = cuentaService.listarCuentasDeCliente(cliente.getId());
+		cuenta = cuentas.get(0);
+
+		System.out.println("\n**** BIENVENIDO, " +  cliente.getNombreApellido().toUpperCase() + " ****");
+		do {
+			System.out.println(
+					"\n1) Consultar saldo" +
+					"\n2) Depositar" +
+					"\n3) Extraer" +
+					"\n4) Transferir" +
+					"\n5) Volver" +
+					"\n\nOPCION: ");
+			opcion = input.nextInt();
+			switch (opcion) {
+				case 1:
+					int i = 1;
+					for(Cuenta c : cuentas) {
+						System.out.println("CUENTA " + i
+								+ " | "+ c.getTipoCuenta()
+								+ " | SALDO: $" + c.getSaldo());
+						i++;
+					}
+					break;
+				case 2:
+					System.out.print("\n¿Cuanto dinero desea ingresar?" +
+							"\nMonto: ");
+					Double dinero = input.nextDouble();
+					cuenta.setSaldo(cuenta.getSaldo() + dinero);
+					cuentaService.actualizarCuenta(cuenta);
+					break;
+				case 3:
+					//TODO: EXTRAER
+					break;
+				case 4:
+					//TODO: TRANSFERIR
+				case 5:
+					salir = true;
+					System.out.println("SALIENDO...");
+			}
+		} while(!salir);
 	}
 }

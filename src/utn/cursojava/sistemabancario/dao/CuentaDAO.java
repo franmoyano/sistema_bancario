@@ -1,5 +1,6 @@
 package utn.cursojava.sistemabancario.dao;
 
+import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 
@@ -20,6 +21,23 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
             instance = new CuentaDAO();
         }
         return instance;
+    }
+
+    @Override
+    public Integer actualizarCuenta(Cuenta cuenta) {
+        try {
+            conectar();
+            String query = "UPDATE cuentas SET saldo = ? WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setDouble(1, cuenta.getSaldo());
+            statement.setInt(2, cuenta.getId());
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            desconectar();
+        }
     }
 
     @Override
@@ -60,6 +78,7 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
                 cuenta.setId(result.getInt("id"));
                 cuenta.setSaldo(result.getDouble("saldo"));
                 cuenta.setCbu(result.getString("cbu"));
+                cuenta.setTipoCuenta(result.getString("tipo_cuenta"));
                 cuentas.add(cuenta);
             }
             return cuentas;

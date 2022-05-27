@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ICuentaService {
 
+	Integer actualizarCuenta(Cuenta cuenta);
+
 	void crearCuenta(Integer idCliente);
 
 	Double extraer(Double monto);

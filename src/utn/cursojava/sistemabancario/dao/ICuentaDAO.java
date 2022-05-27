@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ICuentaDAO {
 
+    Integer actualizarCuenta(Cuenta cuenta);
+
     void addCuenta(Cuenta cuenta);
 
     void deleteCuenta(Cuenta cuenta);
