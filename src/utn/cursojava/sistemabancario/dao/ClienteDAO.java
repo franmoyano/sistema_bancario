@@ -112,6 +112,32 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 	}
 
 	@Override
+	public Cliente findClienteByCuil(String cuil) {
+		try {
+			conectar();
+			String query = "SELECT * FROM clientes WHERE cuil = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, cuil);
+			result = statement.executeQuery();
+			Cliente cliente = new Cliente();
+			while(result.next()) {
+				cliente.setCuil(result.getString("cuil"));
+				cliente.setId(result.getInt("id"));
+				cliente.setNombreApellido(result.getString("nombre_apellido"));
+				cliente.setSucursalId(result.getInt("id_sucursal"));
+			}
+
+			return cliente;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			desconectar();
+		}
+	}
+
+
+	@Override
 	public List<Cliente> listarClientesPorSucursal(Integer nroSucursal) {
 		try {
 			conectar();

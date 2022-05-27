@@ -92,7 +92,8 @@ public class MainService {
     }
 
     static void menu(Integer opcion) {
-
+        Scanner input = new Scanner(System.in);
+        Cliente cliente;
         switch (opcion) {
             case 1:
                 clienteService.addCliente(sucursal.getId());
@@ -111,8 +112,15 @@ public class MainService {
                 break;
             case 5:
                 //TODO: aqui debe ingresar como usuario | Completar metodo
-                System.out.println("Ingrese su cuil: ");
-                
+                System.out.print("Ingrese su cuil: ");
+                String cuil = input.next();
+                cliente = clienteService.findClienteByCuil(cuil);
+                if(cliente.getCuil() == null) {
+                    System.out.println("El cliente solicitado no existe. Redirigiendo al menu principal...");
+                } else {
+                    System.out.println("\nINGRESO EXITOSO");
+                    clienteService.dashboardCliente(cliente);
+                }
                 break;
             case 6:
                 sucursalService.addSucursal(banco.getId());

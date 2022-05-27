@@ -1,5 +1,6 @@
 package utn.cursojava.sistemabancario.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class ClienteServiceImpl implements IClienteService {
 
 	private ClienteDAO clienteDao;
 	private SucursalServiceImpl sucursalService = new SucursalServiceImpl();
+	private CuentaServiceImpl cuentaService = new CuentaServiceImpl();
 
 	public ClienteServiceImpl() {
 		this.clienteDao = ClienteDAO.getInstance();
@@ -24,18 +26,21 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public void addCliente(Integer sucursalId) {
-//		if(sucursalService.listarSucursales().size() == 0) {
-//			System.out.println("\nPara ingresar clientes, debe crear al menos una sucursal." +
-//					"\nUsted esta siendo redirigido...");
-//			sucursalService.addSucursal();
-//		}
 		Scanner input = new Scanner(System.in);
 		Cliente cliente = new Cliente();
 		System.out.println("\n*** CREANDO CLIENTE ***");
 		System.out.print("Nombre y apellido: ");
 		cliente.setNombreApellido(input.nextLine());
 		System.out.print("Cuil (SIN GUIONES NI ESPACIOS): ");
-		cliente.setCuil(input.nextLine());
+		String cuil;
+		do {
+			cuil = input.nextLine();
+			if(cuil.length() <= 10) {
+				System.out.print("Ingrese un cuil valido: ");
+			}
+		} while (cuil.length() <= 10);
+
+		cliente.setCuil(cuil);
 		System.out.print("Domicilio: ");
 		cliente.setDomicilio(input.nextLine());
 		cliente.setSucursalId(sucursalId);
@@ -77,9 +82,42 @@ public class ClienteServiceImpl implements IClienteService {
 		return clienteDao.findClienteById(id);
 	}
 
+	@Override
+	public Cliente findClienteByCuil(String cuil) {
+		return clienteDao.findClienteByCuil(cuil);
+	}
 
 	@Override
 	public void dashboardCliente(Cliente cliente) {
-		System.out.println("");
+		Scanner input = new Scanner(System.in);
+		List<Cuenta> cuentas = new ArrayList<>();
+		Cuenta cuenta = new Cuenta();
+
+		if(cuentaService.listarCuentasDeCliente(cliente.getId()).size() == 0) {
+			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
+			cuentaService.crearCuenta(cliente.getId());
+		}
+
+		System.out.println("\n**** BIENVENIDO, " +  cliente.getNombreApellido().toUpperCase() + " ****" +
+				"\n1) Consultar saldo" +
+				"\n2) Depositar" +
+				"\n3) Extraer" +
+				"\n4) Transferir" +
+				"\n5) Volver" +
+				"\n\nOPCION: ");
+		int opcion = input.nextInt();
+		switch (opcion) {
+			case 1:
+				//TODO: CONSULTAR SALDO
+				break;
+			case 2:
+				//TODO: DEPOSITAR
+				break;
+			case 3:
+				//TODO: EXTRAER
+				break;
+			case 4:
+				//TODO: TRANSFERIR
+		}
 	}
 }

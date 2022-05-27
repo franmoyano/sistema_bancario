@@ -15,6 +15,8 @@ public interface IClienteDAO {
 
 	Cliente findClienteById(Integer id);
 
+	Cliente findClienteByCuil(String cuil);
+
 	List<Cliente> listarClientesPorSucursal(Integer nroSucursal);
 
 	List<Cuenta> listarCuentas();

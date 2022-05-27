@@ -8,6 +8,7 @@ public class Cuenta {
 	private Integer id;
 	private Double saldo;
 	private String cbu;
+	private Integer clienteId;
 	private TipoCuenta tipoCuenta;
 	private TipoMoneda tipoMoneda;
 
@@ -17,12 +18,13 @@ public class Cuenta {
 		this.cbu = String.valueOf(Math.round(Math.random() * 100000000000000L));
 	}
 
-	public Cuenta(Integer id, Double saldo, String cbu, TipoCuenta tipoCuenta, TipoMoneda tipoMoneda) {
+	public Cuenta(Integer id, Double saldo, String cbu, TipoCuenta tipoCuenta, TipoMoneda tipoMoneda, Integer clienteId) {
 		this.id = id;
 		this.saldo = saldo;
 		this.cbu = cbu;
 		this.tipoCuenta = tipoCuenta;
 		this.tipoMoneda = tipoMoneda;
+		this.clienteId = clienteId;
 	}
 
 	public Integer getId() {
@@ -63,5 +65,13 @@ public class Cuenta {
 
 	public void setTipoMoneda(TipoMoneda tipoMoneda) {
 		this.tipoMoneda = tipoMoneda;
+	}
+
+	public Integer getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(Integer clienteId) {
+		this.clienteId = clienteId;
 	}
 }

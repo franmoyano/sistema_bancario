@@ -23,6 +23,8 @@ public interface IClienteService {
 
 	Cliente findClienteById(Integer id);
 
+	Cliente findClienteByCuil(String cuil);
+
 	void dashboardCliente(Cliente cliente);
 
 }
