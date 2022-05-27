@@ -93,6 +93,7 @@ public class ClienteServiceImpl implements IClienteService {
 		Scanner input = new Scanner(System.in);
 		List<Cuenta> cuentas = new ArrayList<>();
 		Cuenta cuenta = new Cuenta();
+		Double dinero;
 
 		if(cuentaService.listarCuentasDeCliente(cliente.getId()).size() == 0) {
 			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
@@ -106,7 +107,7 @@ public class ClienteServiceImpl implements IClienteService {
 
 		System.out.println("\n**** BIENVENIDO, " +  cliente.getNombreApellido().toUpperCase() + " ****");
 		do {
-			System.out.println(
+			System.out.print(
 					"\n1) Consultar saldo" +
 					"\n2) Depositar" +
 					"\n3) Extraer" +
@@ -116,6 +117,7 @@ public class ClienteServiceImpl implements IClienteService {
 			opcion = input.nextInt();
 			switch (opcion) {
 				case 1:
+					//CONSULTAR SALDO
 					int i = 1;
 					for(Cuenta c : cuentas) {
 						System.out.println("CUENTA " + i
@@ -125,14 +127,24 @@ public class ClienteServiceImpl implements IClienteService {
 					}
 					break;
 				case 2:
+					//DEPOSITAR
 					System.out.print("\n¿Cuanto dinero desea ingresar?" +
 							"\nMonto: ");
-					Double dinero = input.nextDouble();
+					dinero = input.nextDouble();
 					cuenta.setSaldo(cuenta.getSaldo() + dinero);
 					cuentaService.actualizarCuenta(cuenta);
 					break;
 				case 3:
-					//TODO: EXTRAER
+					//EXTRAER
+					System.out.print("\n¿Cuanto dinero desea extraer?" +
+							"\nMonto: ");
+					dinero = input.nextDouble();
+					if(dinero > cuenta.getSaldo()) {
+						System.out.println("¡No puede extraer mas que su saldo actual!");
+					} else {
+						cuenta.setSaldo(cuenta.getSaldo() - dinero);
+						cuentaService.actualizarCuenta(cuenta);
+					}
 					break;
 				case 4:
 					//TODO: TRANSFERIR
