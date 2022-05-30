@@ -11,7 +11,6 @@ public class Empleado extends Persona {
 	
 	public Empleado(String dni, String nombreApellido, String telefono, String email) {
 		super(dni, nombreApellido, telefono, email);
-		// TODO Auto-generated constructor stub
 	}
 
 

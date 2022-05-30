@@ -42,20 +42,28 @@ public class MainService {
             System.out.println("\nBIENVENIDO AL BANCO " + banco.getNombre().toUpperCase());
             List<Sucursal> sucursales = sucursalService.listarSucursales();
 
+
             if(sucursales.size() == 0) {
                 System.out.println("\nActualmente no existe ninguna sucursal en el sistema." +
                         "\nEsta siendo redirigido a 'Crear sucursal'...");
                 Integer sucursalId = sucursalService.addSucursal(banco.getId());
                 sucursal = sucursalService.findById(sucursalId);
-            } else if(sucursales.size() == 1){
+            } else {
                 sucursal = sucursales.get(0);
                 System.out.println("SUCURSAL " + sucursal.getNombre());
-            } else {
-                System.out.println("Seleccione una sucursal para operar");
-                imprimirSucursales(sucursales);
-                int opcion = input.nextInt();
-                sucursal = sucursales.get(opcion - 1);
             }
+
+            //Esto permite seleccionar la sucursal a utilizar, en caso de haber mas de una
+
+//            } else if(sucursales.size() == 1){
+//                sucursal = sucursales.get(0);
+//                System.out.println("SUCURSAL " + sucursal.getNombre());
+//            } else {
+//                System.out.println("Seleccione una sucursal para operar");
+//                imprimirSucursales(sucursales);
+//                int opcion = input.nextInt();
+//                sucursal = sucursales.get(opcion - 1);
+//            }
         }
 
         boolean salir = false;
@@ -68,8 +76,8 @@ public class MainService {
                     "\n3) Listar clientes" +
                     "\n4) Listar Clientes de una sucursal" +
                     "\n5) Ingresar como cliente" +
-                    "\n6) Agregar sucursal" +
-                    "\n7) Eliminar sucursal" +
+                    "\n6) Agregar sucursal (EN MANTENIMIENTO)" +
+                    "\n7) Eliminar sucursal (EN MANTENIMIENTO)" +
                     "\n8) SALIR" +
                     "\n\nOPCION: ");
             Integer opcion = input.nextInt();
@@ -123,10 +131,10 @@ public class MainService {
                 }
                 break;
             case 6:
-                sucursalService.addSucursal(banco.getId());
+                //sucursalService.addSucursal(banco.getId());
                 break;
             case 7:
-                sucursalService.deleteSucursal(6);
+                //sucursalService.deleteSucursal(6);
                 break;
             default:
                 System.out.println("Opcion invalida!");

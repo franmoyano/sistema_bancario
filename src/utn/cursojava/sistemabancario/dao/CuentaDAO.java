@@ -60,7 +60,17 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
 
     @Override
     public void deleteCuenta(Cuenta cuenta) {
-        //TODO: completar metodo
+        try {
+            conectar();
+            String query = "DELETE FROM cuentas WHERE id = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, cuenta.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
     }
 
     @Override

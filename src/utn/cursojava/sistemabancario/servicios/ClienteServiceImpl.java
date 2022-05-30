@@ -1,6 +1,7 @@
 package utn.cursojava.sistemabancario.servicios;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -105,14 +106,19 @@ public class ClienteServiceImpl implements IClienteService {
 		cuentas = cuentaService.listarCuentasDeCliente(cliente.getId());
 		cuenta = cuentas.get(0);
 
+
 		System.out.println("\n**** BIENVENIDO, " +  cliente.getNombreApellido().toUpperCase() + " ****");
+		//TODO: Pasar este menu a CuentaService
 		do {
+			try {
+
 			System.out.print(
 					"\n1) Consultar saldo" +
 					"\n2) Depositar" +
 					"\n3) Extraer" +
 					"\n4) Transferir" +
-					"\n5) Volver" +
+					"\n5) Consultar datos de cuenta" +
+					"\n6) Volver" +
 					"\n\nOPCION: ");
 			opcion = input.nextInt();
 			switch (opcion) {
@@ -148,9 +154,18 @@ public class ClienteServiceImpl implements IClienteService {
 					break;
 				case 4:
 					//TODO: TRANSFERIR
+					break;
 				case 5:
+					//CONSULTAR DATOS DE CUENTA
+
+					break;
+				case 6:
 					salir = true;
 					System.out.println("SALIENDO...");
+			}
+			} catch (InputMismatchException e) {
+				System.out.println("Debe ingresar datos numericos, enteros o decimales (con coma)");
+				input.next();
 			}
 		} while(!salir);
 	}
