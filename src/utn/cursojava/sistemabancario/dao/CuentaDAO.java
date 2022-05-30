@@ -24,6 +24,45 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
     }
 
     @Override
+    public Cuenta findCuentaByCBU(String cbu) {
+        try {
+            conectar();
+            String query = "SELECT * FROM cuentas WHERE cbu = ?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, cbu);
+            result = statement.executeQuery();
+            Cuenta cuenta = new Cuenta();
+            if(result.next()) {
+                cuenta.setCbu(result.getString("cbu"));
+                cuenta.setTipoCuenta(result.getString("tipo_cuenta"));
+                cuenta.setClienteId(result.getInt("id_cliente"));
+                cuenta.setSaldo(result.getDouble("saldo"));
+                cuenta.setId(result.getInt("id"));
+            }
+            return cuenta;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            desconectar();
+        }
+    }
+
+    @Override
+    public Integer transferir(Cuenta cuenta, String cbu, Double dinero) {
+        try {
+            conectar();
+            String query = "UPDATE FROM";
+            statement = connection.prepareStatement(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconectar();
+        }
+        return null;
+    }
+
+    @Override
     public Integer actualizarCuenta(Cuenta cuenta) {
         try {
             conectar();

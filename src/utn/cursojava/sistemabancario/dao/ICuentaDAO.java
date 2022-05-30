@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface ICuentaDAO {
 
+    Cuenta findCuentaByCBU(String cbu);
+
+    Integer transferir(Cuenta cuenta, String cbu, Double dinero);
+
     Integer actualizarCuenta(Cuenta cuenta);
 
     void addCuenta(Cuenta cuenta);
