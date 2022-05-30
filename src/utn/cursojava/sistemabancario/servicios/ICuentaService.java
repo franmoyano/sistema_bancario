@@ -14,9 +14,5 @@ public interface ICuentaService {
 
 	void crearCuenta(Integer idCliente);
 
-	Double extraer(Double monto);
-
-	void depositar(Double monto);
-
 	List<Cuenta> listarCuentasDeCliente(Integer id);
 }

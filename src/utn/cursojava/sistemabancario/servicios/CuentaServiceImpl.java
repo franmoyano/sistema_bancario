@@ -26,18 +26,19 @@ public class CuentaServiceImpl implements ICuentaService {
 		Double dinero;
 		int opcion;
 		boolean salir = false;
-		cuenta = cuentas.get(0);
 
-		if(listarCuentasDeCliente(cliente.getId()).size() == 0) {
+		if(cuentas.size() == 0) {
 			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
 			crearCuenta(cliente.getId());
 		}
+		cuentas = listarCuentasDeCliente(cliente.getId());
+		cuenta = cuentas.get(0);
 
 		do {
 			try {
 
 				System.out.print(
-						"\n1) Consultar saldo" +
+						"1) Consultar saldo" +
 								"\n2) Depositar" +
 								"\n3) Extraer" +
 								"\n4) Transferir" +
@@ -50,9 +51,7 @@ public class CuentaServiceImpl implements ICuentaService {
 						//CONSULTAR SALDO
 						int i = 1;
 						for(Cuenta c : cuentas) {
-							System.out.println("CUENTA " + i
-									+ " | "+ c.getTipoCuenta()
-									+ " | SALDO: $" + c.getSaldo());
+							System.out.println("SALDO: $" + c.getSaldo());
 							i++;
 						}
 						break;
@@ -77,14 +76,13 @@ public class CuentaServiceImpl implements ICuentaService {
 						}
 						break;
 					case 4:
-						//TODO: TRANSFERIR
 						System.out.print("\nTRANSFERIR" +
 								"\nIngresa el cbu de la cuenta destino: ");
 						String cbu = input.next();
 						Cuenta cuenta2 = cuentaDao.findCuentaByCBU(cbu);
 
 						//Verifico que no se transfiera a la misma cuenta
-						if(!cbu.equals(cuenta.getCbu()) && cuenta2.getCbu() != null) {
+						if(!cbu.equals(cuenta.getCbu()) && cuenta2.getId() != null) {
 							System.out.print("Ingrese el monto a transferir: ");
 							dinero = input.nextDouble();
 							if(dinero <= cuenta.getSaldo()) {
@@ -92,19 +90,20 @@ public class CuentaServiceImpl implements ICuentaService {
 								cuenta2.setSaldo(cuenta2.getSaldo() + dinero);
 								cuentaDao.actualizarCuenta(cuenta);
 								cuentaDao.actualizarCuenta(cuenta2);
+								System.out.println("\nTRANSFERENCIA EXITOSA");
 							} else {
 								System.out.println("Debe ingresar un monto correcto!");
 							}
 						} else {
-							System.out.println("ERROR");
+							System.out.println("El CBU no se encuentra registrado en ninguna cuenta existente");
 						}
 						break;
 					case 5:
 						//CONSULTAR DATOS DE CUENTA
-						System.out.println("DATOS DE CUENTA" +
-								"\nTitular: " + cliente.getNombreApellido() +
+						System.out.println("\nDATOS DE CUENTA" +
+								"\nTitular: " + cliente.getNombreApellido().toUpperCase() +
 								"\nCBU: " + cuenta.getCbu() +
-								"\nSaldo: " + cuenta.getSaldo() +
+								"\nSaldo: $" + cuenta.getSaldo() +
 								"\nTipo cuenta: " + cuenta.getTipoCuenta());
 						break;
 					case 6:
@@ -116,18 +115,6 @@ public class CuentaServiceImpl implements ICuentaService {
 				input.next();
 			}
 		} while(!salir);
-	}
-
-	@Override
-	public Double extraer(Double monto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void depositar(Double monto) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

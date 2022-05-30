@@ -20,12 +20,7 @@ public class MainService {
 
     public static void optionSelector() {
         Scanner input = new Scanner(System.in);
-
-        //Instancio una lista de bancos, y verifico:
-        //      Si existe un banco, se usa.
-        //      De lo contrario, se genera uno.
         List<Banco> bancos = bancoService.listarBancos();
-
 
         if(bancos.size() == 0) {
             System.out.println("\nActualmente no existe ningun banco en el sistema." +
@@ -119,7 +114,6 @@ public class MainService {
                 }
                 break;
             case 5:
-                //TODO: aqui debe ingresar como usuario | Completar metodo
                 System.out.print("Ingrese su cuil: ");
                 String cuil = input.next();
                 cliente = clienteService.findClienteByCuil(cuil);
