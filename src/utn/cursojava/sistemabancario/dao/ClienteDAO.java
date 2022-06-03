@@ -1,12 +1,11 @@
 package utn.cursojava.sistemabancario.dao;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO extends DAO implements IClienteDAO {
 
@@ -40,8 +39,11 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 			statement.setInt(4, cliente.getSucursalId());
 			statement.executeUpdate();
 			desconectar();
+			System.out.println("\nCLIENTE AGREGADO CON EXITO");
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			desconectar();
 		}
 	}
 

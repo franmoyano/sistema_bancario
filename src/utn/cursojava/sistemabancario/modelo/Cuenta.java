@@ -1,9 +1,5 @@
 package utn.cursojava.sistemabancario.modelo;
 
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
-
-import java.util.UUID;
-
 public class Cuenta {
 	private Integer id;
 	private Double saldo;

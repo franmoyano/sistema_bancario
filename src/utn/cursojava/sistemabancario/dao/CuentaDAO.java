@@ -1,7 +1,5 @@
 package utn.cursojava.sistemabancario.dao;
 
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
-import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 
 import java.sql.SQLException;
@@ -46,20 +44,6 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
         } finally {
             desconectar();
         }
-    }
-
-    @Override
-    public Integer transferir(Cuenta cuenta, String cbu, Double dinero) {
-        try {
-            conectar();
-            String query = "UPDATE FROM";
-            statement = connection.prepareStatement(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            desconectar();
-        }
-        return null;
     }
 
     @Override

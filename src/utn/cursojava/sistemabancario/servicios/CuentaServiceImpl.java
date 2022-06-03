@@ -5,7 +5,6 @@ import utn.cursojava.sistemabancario.dao.CuentaDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -26,6 +25,7 @@ public class CuentaServiceImpl implements ICuentaService {
 		Double dinero;
 		int opcion;
 		boolean salir = false;
+		int resultado;
 
 		if(cuentas.size() == 0) {
 			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
@@ -38,7 +38,7 @@ public class CuentaServiceImpl implements ICuentaService {
 			try {
 
 				System.out.print(
-						"1) Consultar saldo" +
+						"\n1) Consultar saldo" +
 								"\n2) Depositar" +
 								"\n3) Extraer" +
 								"\n4) Transferir" +
@@ -57,11 +57,16 @@ public class CuentaServiceImpl implements ICuentaService {
 						break;
 					case 2:
 						//DEPOSITAR
-						System.out.print("\n¿Cuanto dinero desea ingresar?" +
+						System.out.print("\nCuanto dinero desea ingresar?" +
 								"\nMonto: ");
 						dinero = input.nextDouble();
 						cuenta.setSaldo(cuenta.getSaldo() + dinero);
-						actualizarCuenta(cuenta);
+						resultado = actualizarCuenta(cuenta);
+						if(resultado > 0) {
+							System.out.println("Deposito exitoso!");
+						} else {
+							System.out.println("Deposito fallido!");
+						}
 						break;
 					case 3:
 						//EXTRAER

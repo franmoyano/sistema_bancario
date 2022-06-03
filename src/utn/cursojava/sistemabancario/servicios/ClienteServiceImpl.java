@@ -1,14 +1,11 @@
 package utn.cursojava.sistemabancario.servicios;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
-
 import utn.cursojava.sistemabancario.dao.ClienteDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
-import utn.cursojava.sistemabancario.modelo.Sucursal;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class ClienteServiceImpl implements IClienteService {
 
@@ -32,14 +29,17 @@ public class ClienteServiceImpl implements IClienteService {
 		System.out.println("\n*** CREANDO CLIENTE ***");
 		System.out.print("Nombre y apellido: ");
 		cliente.setNombreApellido(input.nextLine());
-		System.out.print("Cuil (SIN GUIONES NI ESPACIOS): ");
+		System.out.print("Cuil (sin guiones): ");
 		String cuil;
+		boolean salir;
 		do {
+			salir = true;
 			cuil = input.nextLine();
-			if(cuil.length() <= 10) {
+			if(cuil.length() != 11 || !cuil.matches("[0-9]+")) {
 				System.out.print("Ingrese un cuil valido: ");
+				salir = false;
 			}
-		} while (cuil.length() <= 10);
+		} while (!salir);
 
 		cliente.setCuil(cuil);
 		System.out.print("Domicilio: ");

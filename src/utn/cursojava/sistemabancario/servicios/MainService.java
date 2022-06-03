@@ -7,7 +7,6 @@ import utn.cursojava.sistemabancario.modelo.Sucursal;
 
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class MainService {
@@ -136,8 +135,13 @@ public class MainService {
     }
 
     static void imprimirClientes(List<Cliente> clientes) {
-        for(Cliente c : clientes) {
-            System.out.println(c);
+        System.out.println("\n*** LISTADO DE CLIENTES ***");
+        if(clientes.size() == 0) {
+            System.out.println("No hay ningun cliente registrado hasta el momento");
+        } else {
+            for (Cliente c : clientes) {
+                System.out.println(c);
+            }
         }
     }
 

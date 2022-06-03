@@ -1,6 +1,5 @@
 package utn.cursojava.sistemabancario.servicios;
 
-import utn.cursojava.sistemabancario.constants.TipoCuenta;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
 
