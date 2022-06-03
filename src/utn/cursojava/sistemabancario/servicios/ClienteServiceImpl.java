@@ -59,11 +59,6 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public List<Cuenta> listarCuentas() {
-		return clienteDao.listarCuentas();
-	}
-
-	@Override
 	public List<Cliente> findClientes() {
 		return clienteDao.findClientes();
 	}
