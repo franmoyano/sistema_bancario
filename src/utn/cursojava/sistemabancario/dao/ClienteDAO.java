@@ -166,9 +166,4 @@ public class ClienteDAO extends DAO implements IClienteDAO {
 			desconectar();
 		}
 	}
-
-	public List<Cuenta> listarCuentas() {
-		return this.cuentas;
-	}
-
 }
