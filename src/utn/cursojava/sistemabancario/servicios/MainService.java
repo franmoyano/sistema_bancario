@@ -16,10 +16,11 @@ public class MainService {
     static BancoServiceImpl bancoService = new BancoServiceImpl();
     static Banco banco;
     static Sucursal sucursal;
-
+    static List<Sucursal> sucursales;
     public static void optionSelector() {
         Scanner input = new Scanner(System.in);
         List<Banco> bancos = bancoService.listarBancos();
+        boolean salir = false;
 
         if(bancos.size() == 0) {
             System.out.println("\nActualmente no existe ningun banco en el sistema." +
@@ -30,41 +31,51 @@ public class MainService {
             Integer bancoId = bancoService.addBanco();
             banco = bancoService.findById(bancoId);
             Integer sucursalId = sucursalService.addSucursal(bancoId);
+            sucursales = sucursalService.listarSucursales();
             sucursal = sucursalService.findById(sucursalId);
         } else {
             banco = bancos.get(0);
             System.out.println("\nBIENVENIDO AL BANCO " + banco.getNombre().toUpperCase());
-            List<Sucursal> sucursales = sucursalService.listarSucursales();
-
+            sucursales = sucursalService.listarSucursales();
 
             if(sucursales.size() == 0) {
                 System.out.println("\nActualmente no existe ninguna sucursal en el sistema." +
                         "\nEsta siendo redirigido a 'Crear sucursal'...");
                 Integer sucursalId = sucursalService.addSucursal(banco.getId());
                 sucursal = sucursalService.findById(sucursalId);
-            } else {
+            } else if(sucursales.size() == 1){
                 sucursal = sucursales.get(0);
                 System.out.println("SUCURSAL " + sucursal.getNombre());
+            } else {
+                do {
+                    try {
+                        System.out.println("Seleccione una sucursal para operar");
+                        imprimirSucursales(sucursales);
+                        System.out.print("OPCION: ");
+                        int opcion = input.nextInt();
+                        sucursal = sucursales.get(opcion - 1);
+                        salir = true;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Ingrese una opcion dentro del rango correcto");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Ingrese una opcion valida");
+                        input.next();
+                    }
+                } while(!salir);
             }
-
-            //Esto permite seleccionar la sucursal a utilizar, en caso de haber mas de una
-
-//            } else if(sucursales.size() == 1){
+//            else {
 //                sucursal = sucursales.get(0);
 //                System.out.println("SUCURSAL " + sucursal.getNombre());
-//            } else {
-//                System.out.println("Seleccione una sucursal para operar");
-//                imprimirSucursales(sucursales);
-//                int opcion = input.nextInt();
-//                sucursal = sucursales.get(opcion - 1);
 //            }
+
         }
 
-        boolean salir = false;
+        salir = false;
 
         do {
             try {
-            System.out.print("\n**** BANCO ****" +
+            System.out.print("\n**** BANCO "+ banco.getNombre().toUpperCase() +" ****" +
+                    "\n**** SUCURSAL " + sucursal.getNombre().toUpperCase() + " ****" +
                     "\n1) Agregar Cliente" +
                     "\n2) Agregar cuenta a cliente" +
                     "\n3) Listar clientes" +
@@ -96,6 +107,7 @@ public class MainService {
     static void menu(Integer opcion) {
         Scanner input = new Scanner(System.in);
         Cliente cliente;
+        boolean salir = false;
         switch (opcion) {
             case 1:
                 clienteService.addCliente(sucursal.getId());
@@ -103,14 +115,30 @@ public class MainService {
             case 2:
                 break;
             case 3:
+                System.out.println("\n*** LISTADO DE CLIENTES ***");
                 imprimirClientes(clienteService.findClientes());
                 break;
             case 4:
-                //TODO: solicitar nro de sucursal al usuario
-                List<Cliente> c2 = clienteService.listarClientesPorSucursal(3);
-                for(Cliente c : c2) {
-                    System.out.println(c.getNombreApellido());
-                }
+                int idSucursalActual = sucursal.getId();
+                do {
+                    try {
+                        System.out.println("*** LISTAR CLIENTES POR SUCURSAL ***" +
+                                "\nSeleccione una sucursal");
+                        imprimirSucursales(sucursales);
+                        System.out.print("OPCION: ");
+                        opcion = input.nextInt();
+                        salir = true;
+                    } catch (InputMismatchException e) {
+                        input.next();
+                        System.out.println("Ingrese el tipo de dato correcto");
+                    }
+                } while (!salir);
+
+                sucursal = sucursales.get(opcion - 1);
+                System.out.println("\n*** LISTADO DE CLIENTES ***" +
+                        "\n*** SUCURSAL " + sucursal.getNombre().toUpperCase() + " ***");
+                imprimirClientes(clienteService.listarClientesPorSucursal(sucursal.getId()));
+                sucursal = sucursalService.findById(idSucursalActual);
                 break;
             case 5:
                 System.out.print("Ingrese su cuil: ");
@@ -124,7 +152,9 @@ public class MainService {
                 }
                 break;
             case 6:
-                //sucursalService.addSucursal(banco.getId());
+                sucursalService.addSucursal(banco.getId());
+                sucursales.clear();
+                sucursales = sucursalService.listarSucursales();
                 break;
             case 7:
                 //sucursalService.deleteSucursal(6);
@@ -135,7 +165,7 @@ public class MainService {
     }
 
     static void imprimirClientes(List<Cliente> clientes) {
-        System.out.println("\n*** LISTADO DE CLIENTES ***");
+
         if(clientes.size() == 0) {
             System.out.println("No hay ningun cliente registrado hasta el momento");
         } else {
@@ -147,9 +177,13 @@ public class MainService {
 
     static void imprimirSucursales(List<Sucursal> sucursales) {
         int i = 1;
-        for(Sucursal s : sucursales) {
-            System.out.println(i + ") " + s.getNombre());
-            i++;
+        try {
+            for(Sucursal s : sucursales) {
+                System.out.println(i + ") " + s.getNombre());
+                i++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Ingrese una opcion dentro del rango correcto");
         }
     }
 }
