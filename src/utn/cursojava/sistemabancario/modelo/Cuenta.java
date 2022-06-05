@@ -70,4 +70,11 @@ public class Cuenta {
 	public void setClienteId(Integer clienteId) {
 		this.clienteId = clienteId;
 	}
+
+	@Override
+	public String toString() {
+		return "Tipo Cuenta: " + tipoCuenta +
+				" | Saldo: $" + saldo +
+				" | Moneda: " + tipoMoneda;
+	}
 }

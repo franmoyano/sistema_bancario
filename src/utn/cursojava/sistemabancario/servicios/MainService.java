@@ -69,27 +69,25 @@ public class MainService {
 
         do {
             try {
-            System.out.print("\n**** BANCO "+ banco.getNombre().toUpperCase() +" ****" +
-                    "\n**** SUCURSAL " + sucursal.getNombre().toUpperCase() + " ****" +
-                    "\n1) Agregar Cliente" +
-                    "\n2) Agregar cuenta a cliente (EN MANTENIMIENTO)" +
-                    "\n3) Listar clientes" +
-                    "\n4) Listar Clientes de una sucursal" +
-                    "\n5) Ingresar como cliente" +
-                    "\n6) Agregar sucursal" +
-                    "\n7) Eliminar sucursal (EN MANTENIMIENTO)" +
-                    "\n8) SALIR" +
-                    "\n\nOPCION: ");
-            Integer opcion = input.nextInt();
-            if(opcion <= 0) {
-                throw new MenorACeroException();
-            }
-            if(opcion == 8) {
-                System.out.println("SALIENDO...");
-                salir = true;
-            } else {
-                menu(opcion);
-            }
+                System.out.print("\n**** BANCO "+ banco.getNombre().toUpperCase() +" ****" +
+                        "\n**** SUCURSAL " + sucursal.getNombre().toUpperCase() + " ****" +
+                        "\n1) Agregar Cliente" +
+                        "\n2) Listar clientes" +
+                        "\n3) Listar Clientes de una sucursal" +
+                        "\n4) Ingresar como cliente" +
+                        "\n5) Agregar sucursal" +
+                        "\n6) Eliminar sucursal (EN MANTENIMIENTO)" +
+                        "\n7) SALIR" +
+                        "\n\nOPCION: ");
+                Integer opcion = input.nextInt();
+                if(opcion <= 0) {
+                    throw new MenorACeroException();
+                } else if(opcion == 7) {
+                    System.out.println("SALIENDO...");
+                    salir = true;
+                } else {
+                    menu(opcion);
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Debe ingresar opciones numericas!");
                 input.next();
@@ -108,13 +106,10 @@ public class MainService {
                 clienteService.addCliente(sucursal.getId());
                 break;
             case 2:
-                //TODO: completar metodo
-                break;
-            case 3:
                 System.out.println("\n*** LISTADO DE CLIENTES ***");
                 imprimirClientes(clienteService.findClientes());
                 break;
-            case 4:
+            case 3:
                 int idSucursalActual = sucursal.getId();
                 do {
                     try {
@@ -138,7 +133,7 @@ public class MainService {
                 } while (!salir);
 
                 break;
-            case 5:
+            case 4:
                 System.out.print("Ingrese su cuil: ");
                 String cuil = input.next();
                 cliente = clienteService.findClienteByCuil(cuil);
@@ -149,13 +144,13 @@ public class MainService {
                     clienteService.dashboardCliente(cliente);
                 }
                 break;
-            case 6:
+            case 5:
                 sucursalService.addSucursal(banco.getId());
                 sucursales.clear();
                 sucursales = sucursalService.listarSucursales();
                 break;
-            case 7:
-                //sucursalService.deleteSucursal(6);
+            case 6:
+                //TODO: completar
                 break;
             default:
                 System.out.println("Opcion invalida!");

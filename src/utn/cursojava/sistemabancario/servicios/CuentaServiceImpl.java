@@ -21,20 +21,43 @@ public class CuentaServiceImpl implements ICuentaService {
 	public void dashboardCuenta(Cliente cliente) {
 		Scanner input = new Scanner(System.in);
 		List<Cuenta> cuentas = listarCuentasDeCliente(cliente.getId());
-		Cuenta cuenta;
+		Cuenta cuenta = null;
 		Double dinero;
 		int opcion;
 		boolean salir = false;
 		int resultado;
 
 		if(cuentas.size() == 0) {
-			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
+			System.out.println("Usted no tiene ninguna cuenta. A continuacion generara una");
 			crearCuenta(cliente.getId());
+			cuentas = listarCuentasDeCliente(cliente.getId());
+			cuenta = cuentas.get(0);
+		} else if(cuentas.size() == 1) {
+			cuenta = cuentas.get(0);
+		} else {
+			do {
+				try {
+					System.out.println("Elija una cuenta para operar:");
+					int i = 1;
+					for(Cuenta c : cuentas) {
+						System.out.println(i + ") " + c.toString());
+						i++;
+					}
+					System.out.print("OPCION: ");
+					opcion = input.nextInt();
+					cuenta = cuentas.get(opcion - 1);
+					salir = true;
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("Escoja una opcion dentro del rango");
+				} catch (InputMismatchException e) {
+					System.out.println("Debe ingresar datos numericos unicamente");
+					input.next();
+				}
+			} while(!salir);
 		}
 
-		cuentas = listarCuentasDeCliente(cliente.getId());
-		cuenta = cuentas.get(0);
 
+		salir = false;
 		do {
 			try {
 
@@ -44,17 +67,14 @@ public class CuentaServiceImpl implements ICuentaService {
 								"\n3) Extraer" +
 								"\n4) Transferir" +
 								"\n5) Consultar datos de cuenta" +
-								"\n6) Volver" +
+								"\n6) Agregar nueva cuenta" +
+								"\n7) Volver" +
 								"\n\nOPCION: ");
 				opcion = input.nextInt();
 				switch (opcion) {
 					case 1:
 						//CONSULTAR SALDO
-						int i = 1;
-						for(Cuenta c : cuentas) {
-							System.out.println("SALDO: $" + c.getSaldo());
-							i++;
-						}
+						System.out.println("SALDO: $" + cuenta.getSaldo());
 						break;
 					case 2:
 						//DEPOSITAR
@@ -113,6 +133,9 @@ public class CuentaServiceImpl implements ICuentaService {
 								"\nTipo cuenta: " + cuenta.getTipoCuenta());
 						break;
 					case 6:
+						crearCuenta(cliente.getId());
+						break;
+					case 7:
 						salir = true;
 						System.out.println("SALIENDO...");
 				}
@@ -136,10 +159,31 @@ public class CuentaServiceImpl implements ICuentaService {
 	@Override
 	public void crearCuenta(Integer idCliente) {
 		Scanner input = new Scanner(System.in);
+		int opcion;
+		boolean salir = true;
 		Cuenta cuenta = new Cuenta();
 		cuenta.setClienteId(idCliente);
-		cuenta.setTipoCuenta(TipoCuenta.CA.toString());
+		System.out.print("\nElija: Caja de ahorro (CA) o Cuenta corriente (CC):" +
+				"\n1) CA" +
+				"\n2) CC");
+		do {
+			//TODO: solucionar bucle al ingresar opcion incorrecta
+			System.out.print("\nOPCION: ");
+			opcion = input.nextInt();
+			switch (opcion) {
+				case 1:
+					cuenta.setTipoCuenta(TipoCuenta.CA.toString());
+					break;
+				case 2:
+					cuenta.setTipoCuenta(TipoCuenta.CC.toString());
+					break;
+				default:
+					salir = false;
+					System.out.println("Ingrese una opcion correcta!");
+			}
+		} while(!salir);
 		cuentaDao.addCuenta(cuenta);
+		System.out.println("Exitoso");
 	}
 
 
