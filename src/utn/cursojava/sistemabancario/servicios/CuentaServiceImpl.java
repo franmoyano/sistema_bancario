@@ -21,7 +21,7 @@ public class CuentaServiceImpl implements ICuentaService {
 	public void dashboardCuenta(Cliente cliente) {
 		Scanner input = new Scanner(System.in);
 		List<Cuenta> cuentas = listarCuentasDeCliente(cliente.getId());
-		Cuenta cuenta = new Cuenta();
+		Cuenta cuenta;
 		Double dinero;
 		int opcion;
 		boolean salir = false;
@@ -31,6 +31,7 @@ public class CuentaServiceImpl implements ICuentaService {
 			System.out.println("Usted no tiene ninguna cuenta. Se le ha generado una CAJA DE AHORRO");
 			crearCuenta(cliente.getId());
 		}
+
 		cuentas = listarCuentasDeCliente(cliente.getId());
 		cuenta = cuentas.get(0);
 
