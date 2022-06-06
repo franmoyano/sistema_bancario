@@ -67,12 +67,13 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
     public void addCuenta(Cuenta cuenta) {
         try {
             conectar();
-            String query = "INSERT INTO cuentas(cbu, saldo, id_cliente, tipo_cuenta) VALUES(?, ?, ?, ?)";
+            String query = "INSERT INTO cuentas(cbu, saldo, id_cliente, tipo_cuenta, tipo_moneda) VALUES(?, ?, ?, ?, ?)";
             statement = connection.prepareStatement(query);
             statement.setString(1, cuenta.getCbu());
             statement.setDouble(2, 0.0);
             statement.setInt(3, cuenta.getClienteId());
-            statement.setString(4, cuenta.getTipoCuenta().toString());
+            statement.setString(4, cuenta.getTipoCuenta());
+            statement.setString(5, cuenta.getTipoMoneda());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,6 +113,7 @@ public class CuentaDAO extends DAO implements ICuentaDAO {
                 cuenta.setSaldo(result.getDouble("saldo"));
                 cuenta.setCbu(result.getString("cbu"));
                 cuenta.setTipoCuenta(result.getString("tipo_cuenta"));
+                cuenta.setTipoMoneda(result.getString("tipo_moneda"));
                 cuentas.add(cuenta);
             }
             return cuentas;

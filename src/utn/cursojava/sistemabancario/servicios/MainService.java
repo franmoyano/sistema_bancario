@@ -73,10 +73,10 @@ public class MainService {
                         "\n**** SUCURSAL " + sucursal.getNombre().toUpperCase() + " ****" +
                         "\n1) Agregar Cliente" +
                         "\n2) Listar clientes" +
-                        "\n3) Listar Clientes de una sucursal" +
+                        "\n3) Listar clientes por sucursal" +
                         "\n4) Ingresar como cliente" +
                         "\n5) Agregar sucursal" +
-                        "\n6) Eliminar sucursal (EN MANTENIMIENTO)" +
+                        "\n6) Eliminar sucursal" +
                         "\n7) SALIR" +
                         "\n\nOPCION: ");
                 Integer opcion = input.nextInt();
@@ -150,7 +150,22 @@ public class MainService {
                 sucursales = sucursalService.listarSucursales();
                 break;
             case 6:
-                //TODO: completar
+                if(sucursales.size() <= 2) {
+                    System.out.println("\nActualmente existen 2 sucursales o menos." +
+                            "\nPara eliminar una sucursal, deben existir al menos 2.");
+                } else {
+                    System.out.println("\nCual sucursal desea eliminar?");
+                    imprimirSucursales(sucursales);
+                    opcion = input.nextInt();
+                    if(sucursales.get(opcion - 1).getId().equals(sucursal.getId())) {
+                        System.out.println("\nNo puede eliminar la sucursal que esta utilizando actualmente!");
+                    } else {
+                        sucursalService.deleteSucursal(sucursales.get(opcion - 1).getId());
+                        sucursales.clear();
+                        sucursales = sucursalService.listarSucursales();
+                        System.out.println("\nSUCURSAL ELIMINADA CON EXITO");
+                    }
+                }
                 break;
             default:
                 System.out.println("Opcion invalida!");

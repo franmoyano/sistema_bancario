@@ -6,7 +6,7 @@ public class Cuenta {
 	private String cbu;
 	private Integer clienteId;
 	private String tipoCuenta;
-	private TipoMoneda tipoMoneda;
+	private String tipoMoneda;
 
 	// Constructor
 	public Cuenta() {
@@ -14,7 +14,7 @@ public class Cuenta {
 		this.cbu = String.valueOf(Math.round(Math.random() * 100000000000000L));
 	}
 
-	public Cuenta(Integer id, Double saldo, String cbu, String tipoCuenta, TipoMoneda tipoMoneda, Integer clienteId) {
+	public Cuenta(Integer id, Double saldo, String cbu, String tipoCuenta, String tipoMoneda, Integer clienteId) {
 		this.id = id;
 		this.saldo = saldo;
 		this.cbu = cbu;
@@ -55,11 +55,11 @@ public class Cuenta {
 		this.tipoCuenta = tipoCuenta;
 	}
 
-	public TipoMoneda getTipoMoneda() {
+	public String getTipoMoneda() {
 		return tipoMoneda;
 	}
 
-	public void setTipoMoneda(TipoMoneda tipoMoneda) {
+	public void setTipoMoneda(String tipoMoneda) {
 		this.tipoMoneda = tipoMoneda;
 	}
 

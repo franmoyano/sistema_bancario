@@ -1,6 +1,7 @@
 package utn.cursojava.sistemabancario.servicios;
 
 import utn.cursojava.sistemabancario.constants.TipoCuenta;
+import utn.cursojava.sistemabancario.constants.TipoMoneda;
 import utn.cursojava.sistemabancario.dao.CuentaDAO;
 import utn.cursojava.sistemabancario.modelo.Cliente;
 import utn.cursojava.sistemabancario.modelo.Cuenta;
@@ -130,7 +131,8 @@ public class CuentaServiceImpl implements ICuentaService {
 								"\nTitular: " + cliente.getNombreApellido().toUpperCase() +
 								"\nCBU: " + cuenta.getCbu() +
 								"\nSaldo: $" + cuenta.getSaldo() +
-								"\nTipo cuenta: " + cuenta.getTipoCuenta());
+								"\nTipo cuenta: " + cuenta.getTipoCuenta() +
+								"\nMoneda: " + cuenta.getTipoMoneda());
 						break;
 					case 6:
 						crearCuenta(cliente.getId());
@@ -167,23 +169,30 @@ public class CuentaServiceImpl implements ICuentaService {
 				"\n1) CA" +
 				"\n2) CC");
 		do {
-			//TODO: solucionar bucle al ingresar opcion incorrecta
-			System.out.print("\nOPCION: ");
-			opcion = input.nextInt();
-			switch (opcion) {
-				case 1:
-					cuenta.setTipoCuenta(TipoCuenta.CA.toString());
-					break;
-				case 2:
-					cuenta.setTipoCuenta(TipoCuenta.CC.toString());
-					break;
-				default:
-					salir = false;
-					System.out.println("Ingrese una opcion correcta!");
+			salir = true;
+			try {
+				System.out.print("\nOPCION: ");
+				opcion = input.nextInt();
+				switch (opcion) {
+					case 1:
+						cuenta.setTipoCuenta(TipoCuenta.CA.toString());
+						break;
+					case 2:
+						cuenta.setTipoCuenta(TipoCuenta.CC.toString());
+						break;
+					default:
+						salir = false;
+						System.out.println("Ingrese una opcion correcta!");
+				}
+			} catch (InputMismatchException e) {
+				salir = false;
+				input.next();
+				System.out.println("Ingrese datos numericos!");
 			}
 		} while(!salir);
+		cuenta.setTipoMoneda(TipoMoneda.PESOS.toString());
 		cuentaDao.addCuenta(cuenta);
-		System.out.println("Exitoso");
+		System.out.println("\nCUENTA CREADA EXITOSAMENTE!");
 	}
 
 
