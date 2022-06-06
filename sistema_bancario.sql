@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `sistema_bancario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+DROP SCHEMA IF EXISTS `sistema_bancario`;
+CREATE DATABASE `sistema_bancario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `sistema_bancario`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
@@ -28,10 +29,9 @@ CREATE TABLE `bancos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-ALTER TABLE `bancos` AUTO_INCREMENT = 1;
 --
 -- Table structure for table `clientes`
 --
@@ -48,11 +48,9 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   KEY `clientes_ibfk_1_idx` (`id_sucursal`),
   CONSTRAINT `clientes_fk` FOREIGN KEY (`id_sucursal`) REFERENCES `sucursales` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
-ALTER TABLE `clientes` AUTO_INCREMENT = 1;
 --
 -- Table structure for table `cuentas`
 --
@@ -66,13 +64,12 @@ CREATE TABLE `cuentas` (
   `saldo` float NOT NULL,
   `id_cliente` int NOT NULL,
   `tipo_cuenta` char(2) NOT NULL,
+  `tipo_moneda` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cuentas_ibfk_1` (`id_cliente`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-ALTER TABLE `cuentas` AUTO_INCREMENT = 1;
 
 --
 -- Table structure for table `sucursales`
@@ -88,7 +85,7 @@ CREATE TABLE `sucursales` (
   PRIMARY KEY (`id`),
   KEY `id_banco_fk_idx` (`id_banco`),
   CONSTRAINT `id_banco_fk` FOREIGN KEY (`id_banco`) REFERENCES `bancos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -100,6 +97,4 @@ CREATE TABLE `sucursales` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
-ALTER TABLE `sucursales` AUTO_INCREMENT = 1;
--- Dump completed on 2022-06-04 10:43:56
+-- Dump completed on 2022-06-05 23:25:38
