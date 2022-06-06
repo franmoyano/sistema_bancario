@@ -32,6 +32,7 @@ CREATE TABLE `bancos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE `bancos` AUTO_INCREMENT = 1;
 --
 -- Table structure for table `clientes`
 --
@@ -51,6 +52,8 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+ALTER TABLE `clientes` AUTO_INCREMENT = 1;
 --
 -- Table structure for table `cuentas`
 --
@@ -71,6 +74,8 @@ CREATE TABLE `cuentas` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+ALTER TABLE `cuentas` AUTO_INCREMENT = 1;
 --
 -- Table structure for table `sucursales`
 --
@@ -96,5 +101,7 @@ CREATE TABLE `sucursales` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+ALTER TABLE `sucursales` AUTO_INCREMENT = 1;
 
 -- Dump completed on 2022-06-05 23:25:38
